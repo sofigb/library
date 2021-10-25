@@ -49,7 +49,7 @@ public class AuthorController {
     }
     @GetMapping("/mostrarAutor")
    public ModelAndView MostrarAuthor() {
-        ModelAndView mav = new ModelAndView("/static/tables");
+        ModelAndView mav = new ModelAndView("tables");
         mav.addObject("title", "mostrarAutor");
         mav.addObject("autores", listaAuthor());
        return mav;
