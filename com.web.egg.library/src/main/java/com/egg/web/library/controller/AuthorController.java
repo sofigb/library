@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 @RestController
-@RequestMapping("")
+
 public class AuthorController {
     @Autowired
     AuthorService aservice;
@@ -42,27 +42,36 @@ public class AuthorController {
 //        return new RedirectView ("/crear_autor");
 //    }
     
-    @GetMapping("/listar")
+    @GetMapping("/listarAutores")
     private List<Author> listaAuthor() {
         List <Author> usuarios = aservice.findAll();
         return usuarios;
     }
-    @GetMapping("/alta_autor/{id}")
-    private String altaAutor(@PathVariable String id) throws MyExceptionService { 
+    @GetMapping("/mostrarAutor")
+   public ModelAndView MostrarAuthor() {
+        ModelAndView mav = new ModelAndView("/static/tables");
+        mav.addObject("title", "mostrarAutor");
+        mav.addObject("autores", listaAuthor());
+       return mav;
+   }
+
+
+
+
+    @GetMapping("/altaAutor")
+    private String altaAutor(@RequestParam String id) throws MyExceptionService {
      aservice.changeState(id, Boolean.TRUE);
         return "El autor " + aservice.lookForId(id).getName() +" ha sido dado de alta";
     }
-    @GetMapping("/baja_autor/{id}")
-    private String bajaAutor(@PathVariable String id) throws MyExceptionService { 
+
+    @GetMapping("/bajaAutor")
+    private String bajaAutor(@RequestParam String id) throws MyExceptionService {
      aservice.changeState(id, Boolean.FALSE);
         return "El autor " + aservice.lookForId(id).getName() +" ha sido dado de baja";
     }
 
-    @GetMapping("/foos")//?id="sdgfsdg" ->esto x usar REQUESTPARAM
-    @ResponseBody
-    public String getFooById(@RequestParam String id) {
-        return "ID: " + id;
-    }
+
+
    @PostMapping("/crear_autor")
        public  void crearAutor(@RequestBody Author author)  { 
        aservice.crearAuthor(author);
@@ -70,6 +79,13 @@ public class AuthorController {
     @PutMapping("/modificar")
     public void modificar(@RequestBody Author author){
         aservice.crearAuthor(author);
+    }
+
+
+    @GetMapping("/foos")//?id="sdgfsdg" ->esto x usar REQUESTPARAM
+    @ResponseBody
+    public String getFooById(@RequestParam String id) {
+        return "ID: " + id;
     }
     
 }
