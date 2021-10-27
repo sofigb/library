@@ -53,18 +53,16 @@ public class AuthorService {
     }
 
     @Transactional
-    public void changeState(String id, Boolean status) throws MyExceptionService {
-        try {
-            Optional<Author> reponse = authorRep.findById(id);
-            Validation.validationIDfound(id, reponse);
-
-        } catch (MyExceptionService e) {
-            throw new MyExceptionService();
-        }
+    public void changeState(String id, Boolean status)  {
+//        try {
+//            Optional<Author> reponse = authorRep.findById(id);
+//            Validation.validationIDfound(id, reponse);
+//
+//        } catch (MyExceptionService e) {
+//            throw new MyExceptionService();
+//        }
      
-        Author author = authorRep.findById(id).get();
-        author.setStatus(status);
-        authorRep.save(author);
+      authorRep.changeStatus(id, status);
     }
 
     @Transactional(readOnly = true)
@@ -77,7 +75,7 @@ public class AuthorService {
     public List<Author> findAll() {
         return authorRep.findAll();
     }
-
+   
 //   Nose como buscar por nombre !  
     //@Transactional(readOnly = true)
 //    public Author findByName(String name) {
