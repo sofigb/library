@@ -6,6 +6,7 @@ import com.egg.web.library.repository.AuthorRepository;
 import com.egg.web.library.validation.Validation;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -74,6 +75,10 @@ public class AuthorService {
     @Transactional(readOnly = true)
     public List<Author> findAll() {
         return authorRep.findAll();
+    }
+    @Transactional(readOnly = true)
+    public List<Author> findAllH() {
+        return authorRep.findAll().stream().filter(author -> author.getStatus()== true).collect(Collectors.toList());
     }
    
 //   Nose como buscar por nombre !  

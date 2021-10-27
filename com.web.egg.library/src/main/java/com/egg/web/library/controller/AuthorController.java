@@ -28,8 +28,9 @@ public class AuthorController {
     public ModelAndView MostrarAuthor() {
         ModelAndView mav = new ModelAndView("tables");
         mav.addObject("autores", aservice.findAll());
+        //mav.addObject("autoresH", aservice.findAllH());
         mav.addObject("title", "Autor");
-        mav.addObject("title1", "Autores");
+        mav.addObject("title1", "Autores"); 
         return mav;
     }
 
@@ -37,8 +38,17 @@ public class AuthorController {
     public ModelAndView registrarAuthor() {
         ModelAndView mav = new ModelAndView("register");
         mav.addObject("author", new Author());
-       // mav.addObject("action", "crear");
+       mav.addObject("action", "crear");
         mav.addObject("title1", "Autores");
+        return mav;
+    }
+    @GetMapping("/modificarNombre/{id}")
+    public ModelAndView modificarAuthor(@PathVariable String id) {
+        ModelAndView mav = new ModelAndView("modify");
+        
+        mav.addObject("author", aservice.lookForId(id));
+        mav.addObject("action", "guardarNombre");
+        mav.addObject("title1", " Cambios en autores");
         return mav;
     }
 
@@ -57,6 +67,12 @@ public class AuthorController {
     @PostMapping("/crear")
     public RedirectView crearAutor(@RequestParam String name) throws MyExceptionService {
         aservice.createAuthor(name);
+        return new RedirectView("/autores");
+    }
+    @PostMapping("/guardarNombre")
+    public RedirectView modificarAuthor(@RequestParam String name, @RequestParam  String id) throws MyExceptionService {
+        
+        aservice.modifyName(id, name);
         return new RedirectView("/autores");
     }
 }

@@ -21,4 +21,6 @@ public interface AuthorRepository extends JpaRepository<Author, String> {
 
     @Query("SELECT a FROM Author a WHERE a.name = :name ")
     void findByName(@Param("name") String name);
+    
+    
 }

@@ -41,7 +41,7 @@ public class Author {
         this.name = name;
     }
 
-    public boolean isStatus() {
+    public boolean getStatus() {
         return status;
     }
 

@@ -37,21 +37,20 @@
                         <div class="col-lg-7">
                             <div class="p-5">
                                 <div class="text-center">
-                                    <h1 class="h4 text-gray-900 mb-4">Crear <span th:text="${title1}"></h1>
+                                    <h1 class="h4 text-gray-900 mb-4"> <span th:text="${title1}"></h1>
                                 </div>
                                 <form th:action="@{/autores/__${action}__}" method ="POST" class="user"  >
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
 
                                             <input  type="text"  class="form-control form-control-user"   name="name" 
-                                                    placeholder="Ingrese el nombre completo" />
-
+                                                    placeholder="Ingrese el nombre completo" th:value="${author.name}"/>
+                                            <input  type="hidden"    name="id" th:value="${author.id}" />
                                         </div>
 
                                     </div>
                                     <button 	type="submit" class="btn btn-primary btn-user btn-block"> 
-                                        Registrar <span th:text="${title1}"></button> 
-
+                                        Modificar <span th:text="${title1}"></button> 
 
                                 </form>
                                 <hr>
