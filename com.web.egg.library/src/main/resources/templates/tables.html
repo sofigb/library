@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Tables</title>
+    <title th:text="${title}"></title>
 
     <!-- Custom fonts for this template -->
     <link th:href="@{vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
@@ -139,7 +139,7 @@
             <li class="nav-item active">
                 <a class="nav-link" href="tables.html">
                     <i class="fas fa-fw fa-table"></i>
-                    <span>Tables</span></a>
+                    <span ></span></a>
             </li>
 
             <!-- Divider -->
@@ -369,7 +369,7 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Tables</h1>
+                    <h1 class="h3 mb-2 text-gray-800" th:text="${title}">Tables</h1>
                     <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
                         For more information about DataTables, please visit the <a target="_blank"
                             href="https://datatables.net">official DataTables documentation</a>.</p>
@@ -398,7 +398,15 @@
                                             <td th:text="${autor.id}"></td>
                                             <td th:text="${autor.name}"></td>
                                             <td th:text="${autor.status}"></td>
-                                            <td> ver| modificar| eliminar</td>
+                                            <td> ver| modificar|                                   
+                                                
+                                                <div>
+                                                <a href="#" class="btn btn-danger btn-icon-split">
+                                                <span class="text">Desactivar</span>
+                                                </a>
+                                                </div>
+                                        
+                                        </td>
                                         </tr>
                                     </tbody>
                                 </table>

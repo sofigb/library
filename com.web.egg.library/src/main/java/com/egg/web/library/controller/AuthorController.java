@@ -5,21 +5,23 @@ import com.egg.web.library.entity.Author;
 import com.egg.web.library.exception.MyExceptionService;
 import com.egg.web.library.repository.AuthorRepository;
 import com.egg.web.library.service.AuthorService;
+
+import java.text.MessageFormat;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
+
 @RestController
+
 
 public class AuthorController {
     @Autowired
@@ -47,27 +49,42 @@ public class AuthorController {
         List <Author> usuarios = aservice.findAll();
         return usuarios;
     }
-    @GetMapping("/mostrarAutor")
+    @GetMapping("/mostrarAutores")
    public ModelAndView MostrarAuthor() {
-        ModelAndView mav = new ModelAndView("tables");
-        mav.addObject("title", "mostrarAutor");
+        ModelAndView mav = new ModelAndView("listarAuthor");
+        mav.addObject("title", "listarAuthor");
         mav.addObject("autores", listaAuthor());
        return mav;
    }
 
 
-
+   @GetMapping("/activarAutor")
+    public ModelAndView activarAutor(@RequestParam String id) throws MyExceptionService {
+        String mensaje = altaAutor(id);
+        return MostrarAuthor();
+   }
 
     @GetMapping("/altaAutor")
     private String altaAutor(@RequestParam String id) throws MyExceptionService {
      aservice.changeState(id, Boolean.TRUE);
-        return "El autor " + aservice.lookForId(id).getName() +" ha sido dado de alta";
+        String mensaje = "El autor " + aservice.lookForId(id).getName() +" ha sido dado de alta";
+        final String json = "{\"id\":"+id+" ,\"mensaje\":\" "+mensaje+" \",\"status\":\""+Boolean.TRUE+"\"}";
+        return json;
+    }
+
+
+    @GetMapping("/desactivarAutor")
+    public ModelAndView desactivarAutor(@RequestParam String id) throws MyExceptionService {
+        String mensaje = bajaAutor(id);
+        return MostrarAuthor();
     }
 
     @GetMapping("/bajaAutor")
     private String bajaAutor(@RequestParam String id) throws MyExceptionService {
      aservice.changeState(id, Boolean.FALSE);
-        return "El autor " + aservice.lookForId(id).getName() +" ha sido dado de baja";
+        String mensaje = "El autor " + aservice.lookForId(id).getName() +" ha sido dado de baja";
+        final String json = "{\"id\":"+id+" ,\"mensaje\":\" "+mensaje+" \",\"status\":\""+Boolean.FALSE+"\"}";
+        return json;
     }
 
 
@@ -76,16 +93,29 @@ public class AuthorController {
        public  void crearAutor(@RequestBody Author author)  { 
        aservice.crearAuthor(author);
     }
+
+
+    @GetMapping("/modificarAutor")
+    public ModelAndView ModificarAuthor(@RequestParam String id) {
+        Author autor = getFooById(id);
+        ModelAndView mav = new ModelAndView("modificarAuthor");
+        mav.addObject("title", "modificarAuthor");
+        mav.addObject("nombre", autor.getName());
+        return mav;
+    }
+
     @PutMapping("/modificar")
     public void modificar(@RequestBody Author author){
         aservice.crearAuthor(author);
     }
 
 
-    @GetMapping("/foos")//?id="sdgfsdg" ->esto x usar REQUESTPARAM
-    @ResponseBody
-    public String getFooById(@RequestParam String id) {
-        return "ID: " + id;
+
+
+
+    @GetMapping("/obtenerAutor")
+    public Author getFooById(@RequestParam String id) {
+        return  aservice.lookForId(id);
     }
     
 }
