@@ -24,9 +24,9 @@
         <link th:href="@{/vendor/datatables/dataTables.bootstrap4.min.css}" rel="stylesheet">
 
     </head>
-
+    
     <body class="bg-gradient-primary">
-
+        <div th:include="/show.html::header" ></div>
         <div class="container">
 
             <div class="card o-hidden border-0 shadow-lg my-5">
@@ -39,7 +39,7 @@
                                 <div class="text-center">
                                     <h1 class="h4 text-gray-900 mb-4">Crear <span th:text="${title1}"></h1>
                                 </div>
-                                <form th:action="@{/autores/__${action}__}" method ="POST" class="user"  >
+                                <form th:action="@{/editoriales/__${action}__}" method ="POST" class="user"  >
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
 
@@ -50,7 +50,7 @@
 
                                     </div>
                                     <button 	type="submit" class="btn btn-primary btn-user btn-block"> 
-                                        Registrar <span th:text="${title1}"></button> 
+                                        Registrar Editorial </button> 
 
 
                                 </form>

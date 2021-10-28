@@ -27,26 +27,25 @@ public class AuthorController {
     @GetMapping()
     public ModelAndView MostrarAuthor() {
         ModelAndView mav = new ModelAndView("tables");
-        mav.addObject("autores", aservice.findAll());
-        //mav.addObject("autoresH", aservice.findAllH());
-        mav.addObject("title", "Autor");
+        mav.addObject("listaOb", aservice.findAll());
+        mav.addObject("href1", "autores");
+        mav.addObject("href", "registrar");
+        mav.addObject("title", "o Autor");
         mav.addObject("title1", "Autores"); 
         return mav;
     }
 
     @GetMapping("/registrar")
     public ModelAndView registrarAuthor() {
-        ModelAndView mav = new ModelAndView("register");
-        mav.addObject("author", new Author());
-       mav.addObject("action", "crear");
-        mav.addObject("title1", "Autores");
+        ModelAndView mav = new ModelAndView("registerAuthor");
+        mav.addObject("action", "crear");
+        
         return mav;
     }
     @GetMapping("/modificarNombre/{id}")
     public ModelAndView modificarAuthor(@PathVariable String id) {
-        ModelAndView mav = new ModelAndView("modify");
-        
-        mav.addObject("author", aservice.lookForId(id));
+        ModelAndView mav = new ModelAndView("modifyAuthor");   
+        mav.addObject("objeto", aservice.lookForId(id));
         mav.addObject("action", "guardarNombre");
         mav.addObject("title1", " Cambios en autores");
         return mav;

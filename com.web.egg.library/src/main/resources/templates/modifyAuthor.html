@@ -24,7 +24,7 @@
         <link th:href="@{/vendor/datatables/dataTables.bootstrap4.min.css}" rel="stylesheet">
 
     </head>
-
+    <div th:include="/show.html::header" ></div>
     <body class="bg-gradient-primary">
 
         <div class="container">
@@ -44,8 +44,8 @@
                                         <div class="col-sm-6 mb-3 mb-sm-0">
 
                                             <input  type="text"  class="form-control form-control-user"   name="name" 
-                                                    placeholder="Ingrese el nombre completo" th:value="${author.name}"/>
-                                            <input  type="hidden"    name="id" th:value="${author.id}" />
+                                                    placeholder="Ingrese el nombre completo" th:value="${objeto.name}"/>
+                                            <input  type="hidden"    name="id" th:value="${objeto.id}" />
                                         </div>
 
                                     </div>
