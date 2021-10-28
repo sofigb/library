@@ -370,9 +370,12 @@
 
                 <!-- Page Heading -->
                 <h1 class="h3 mb-2 text-gray-800" th:text="${title}">Tables</h1>
-                <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
-                    For more information about DataTables, please visit the <a target="_blank"
-                                                                               href="https://datatables.net">official DataTables documentation</a>.</p>
+               
+
+
+                <a class="btn btn-info btn-icon-split" th:href="@{'/crearAutor'}">
+                    <span class="text"> Crear Autor</span>
+                  </a>
 
                 <!-- DataTales Example -->
                 <div class="card shadow mb-4">
@@ -524,6 +527,7 @@ botones.forEach(element=>{
              }
              else{              
                 let message = (xhr.statusText==="")?'a ocurrido un error' : xhr.statusText;
+
                 $xhr.innerHTML =`Error: ${xhr.status} ${message} por favor contactese con cgcet `;
 
              }

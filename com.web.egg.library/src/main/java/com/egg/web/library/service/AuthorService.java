@@ -36,7 +36,12 @@ public class AuthorService {
     public void crearAuthor(Author au){
         authorRep.save(au);
     }
-//NO ESTOY USANDO MI QUERY ESPECIAL PARA ESTO
+
+    @Transactional
+    public void modificarAuthor(Author author){
+        authorRep.modifyName(author.getId(), author.getName());
+    }
+
     @Transactional
     public void modifyName(String id, String name) throws MyExceptionService {
         try {

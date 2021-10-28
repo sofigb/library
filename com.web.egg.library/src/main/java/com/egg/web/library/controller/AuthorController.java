@@ -57,7 +57,7 @@ public class AuthorController {
        return mav;
    }
 
-
+   @Deprecated
    @GetMapping("/activarAutor")
     public ModelAndView activarAutor(@RequestParam String id) throws MyExceptionService {
         String mensaje = altaAutor(id);
@@ -72,7 +72,7 @@ public class AuthorController {
         return json;
     }
 
-
+    @Deprecated
     @GetMapping("/desactivarAutor")
     public ModelAndView desactivarAutor(@RequestParam String id) throws MyExceptionService {
         String mensaje = bajaAutor(id);
@@ -90,8 +90,18 @@ public class AuthorController {
 
 
    @PostMapping("/crear_autor")
-       public  void crearAutor(@RequestBody Author author)  { 
-       aservice.crearAuthor(author);
+       public  void crearAutor(@RequestBody String nombre)  {
+       Author unAutor = new Author();
+       unAutor.setName(nombre);
+       aservice.crearAuthor(unAutor);
+    }
+
+
+    @GetMapping("/crearAutor")
+    public ModelAndView CrearAuthor() {
+        ModelAndView mav = new ModelAndView("crearAutor");
+        mav.addObject("title", "CrearAutor");
+        return mav;
     }
 
 
@@ -100,18 +110,20 @@ public class AuthorController {
         Author autor = getFooById(id);
         ModelAndView mav = new ModelAndView("modificarAuthor");
         mav.addObject("title", "modificarAuthor");
-        mav.addObject("nombre", autor.getName());
+        mav.addObject("autor", autor);
         return mav;
     }
 
+
     @PutMapping("/modificar")
-    public void modificar(@RequestBody Author author){
-        aservice.crearAuthor(author);
+    public void modificar(@RequestBody String autor){
+         Author unAutor = new Author();
+         unAutor.setId(autor.split(",")[0].split(":")[1]);
+         unAutor.setName(autor.split(",")[1].split(":")[1]);
+         unAutor.setStatus(Boolean.getBoolean(autor.split(",")[2].split(":")[1]));
+        aservice.modificarAuthor(unAutor);
+
     }
-
-
-
-
 
     @GetMapping("/obtenerAutor")
     public Author getFooById(@RequestParam String id) {
