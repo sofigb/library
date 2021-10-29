@@ -73,9 +73,10 @@
                                                         <th>Titulo</th>
                                                         <th>Año de publicacion</th>
                                                         <th>Cantidad Total</th>
-                                                        <th>Cantidad Diponible</th>
-                                                        <th>Cantidad Prestada</th>
+
                                                         <th>Estado</th>
+                                                        <th>Autor</th>
+                                                        <th>Editorial</th>
                                                         <th>Acciones</th>
                                                     </tr>
 
@@ -87,99 +88,103 @@
                                                         <td th:text="${obej.title}"></td>
                                                         <td th:text="${obej.year}"></td>
                                                         <td th:text="${obej.copies}"></td>
-                                                        <td th:text="${obej.borrowedCopies}"></td>
-                                                        <td th:text="${obej.remainingCopies}"></td>
                                                         <td th:text="${obej.status}"></td>
+                                                        <td th:text="${obej.author.name}"></td>
+                                                        <td th:text="${obej.editorial.name}"></td>
 
-                                                        <td > 
+                                                         <td > 
+                                                            <a   class="btn btn-info btn-circle btn-sm" th:href="@{__${href1}__/modificarNombre/__${obej.id}__}" title="Modificar Nombre">  <i class="fas fa-info-circle"></i> </a>
+                                                            <div th:switch="${obej.status}">
 
 
-                                                            <div th:if="${obej.status}">
-                                                                <a   class="btn btn-info btn-circle btn-sm" th:href="@/libros/modificarNombre/__${obej.id}__}" title="Modificar Nombre">  <i class="fas fa-info-circle"></i>
-                                                                    <a   class="btn btn-danger btn-circle btn-sm" th:href="@/libros/baja/__${obej.id}__}" title="Deshabilitar" >  <i class="fas fa-trash"></i> 
-                                                                        </div>
 
-                                                                        <div th:unless="${obej.status}">
-                                                                            <a   class="btn btn-info btn-circle btn-sm" th:href="@/libros/modificarNombre/__${obej.id}__}" title="Modificar Nombre">  <i class="fas fa-info-circle"></i>
-                                                                                <a class="btn btn-success btn-circle btn-sm" th:href="@/libros/alta/__${obej.id}__}" title="Habilitar" >  <i class="fas fa-check"></i> 
-                                                                                    </div>
-
-                                                                                    </td>        
+                                                                <a  th:case="true" class="btn btn-danger btn-circle btn-sm" th:href="@{__${href1}__/baja/__${obej.id}__}" title="Deshabilitar" >  <i class="fas fa-trash"></i> </a>
 
 
 
 
-                                                                                    </tr>
-                                                                                    </tbody>
+                                                                <a  th:case="false" class="btn btn-success btn-circle btn-sm" th:href="@{__${href1}__/alta/__${obej.id}__}" title="Habilitar" >  <i class="fas fa-check"></i> </a>
+                                                            </div>
 
-                                                                                    </table>
-                                                                                    </div>
-                                                                                    </div>
-                                                                                    </div>
+                                                        </td>     
 
-                                                                                    </div>
-                                                                                    <!-- /.container-fluid -->
 
-                                                                                    </div>
-                                                                                    <!-- End of Main Content -->
 
-                                                                                    <!-- Footer -->
-                                                                                    <footer class="sticky-footer bg-white">
-                                                                                        <div class="container my-auto">
-                                                                                            <div class="copyright text-center my-auto">
-                                                                                                <span>Copyright &copy; Your Website 2020</span>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </footer>
-                                                                                    <!-- End of Footer -->
 
-                                                                                    </div>
-                                                                                    <!-- End of Content Wrapper -->
 
-                                                                                    </div>
-                                                                                    <!-- End of Page Wrapper -->
 
-                                                                                    <!-- Scroll to Top Button-->
-                                                                                    <a class="scroll-to-top rounded" href="#page-top">
-                                                                                        <i class="fas fa-angle-up"></i>
-                                                                                    </a>
 
-                                                                                    <!-- Logout Modal-->
-                                                                                    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                                                                                         aria-hidden="true">
-                                                                                        <div class="modal-dialog" role="document">
-                                                                                            <div class="modal-content">
-                                                                                                <div class="modal-header">
-                                                                                                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                                                                                                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                                                                                                        <span aria-hidden="true">×</span>
-                                                                                                    </button>
-                                                                                                </div>
-                                                                                                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                                                                                                <div class="modal-footer">
-                                                                                                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                                                                                                    <a class="btn btn-primary" href="login.html">Logout</a>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
+                                                    </tr>
+                                                </tbody>
 
-                                                                                    <!-- Bootstrap core JavaScript-->
-                                                                                    <script th:src="@{/vendor/jquery/jquery.min.js}"></script>
-                                                                                    <script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
 
-                                                                                    <!-- Core plugin JavaScript-->
-                                                                                    <script th:src="@{/vendor/jquery-easing/jquery.easing.min.js}"></script>
+                    </div>
+                    <!-- /.container-fluid -->
 
-                                                                                    <!-- Custom scripts for all pages-->
-                                                                                    <script src="@{/js/sb-admin-2.min.js}"></script>
+                </div>
+                <!-- End of Main Content -->
 
-                                                                                    <!-- Page level plugins -->
-                                                                                    <script th:src="@{/vendor/datatables/jquery.dataTables.min.js}"></script>
-                                                                                    <script th:src="@{/vendor/datatables/dataTables.bootstrap4.min.js}"></script>
+                <!-- Footer -->
+                <footer class="sticky-footer bg-white">
+                    <div class="container my-auto">
+                        <div class="copyright text-center my-auto">
+                            <span>Copyright &copy; Your Website 2020</span>
+                        </div>
+                    </div>
+                </footer>
+                <!-- End of Footer -->
 
-                                                                                    <!-- Page level custom scripts -->
-                                                                                    <script th:src="@{/js/demo/datatables-demo.js}"></script>
-                                                                                    </body>
+            </div>
+            <!-- End of Content Wrapper -->
 
-                                                                                    </html>
+        </div>
+        <!-- End of Page Wrapper -->
+
+        <!-- Scroll to Top Button-->
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fas fa-angle-up"></i>
+        </a>
+
+        <!-- Logout Modal-->
+        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                        <a class="btn btn-primary" href="login.html">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bootstrap core JavaScript-->
+        <script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+        <script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+        <!-- Core plugin JavaScript-->
+        <script th:src="@{/vendor/jquery-easing/jquery.easing.min.js}"></script>
+
+        <!-- Custom scripts for all pages-->
+        <script src="@{/js/sb-admin-2.min.js}"></script>
+
+        <!-- Page level plugins -->
+        <script th:src="@{/vendor/datatables/jquery.dataTables.min.js}"></script>
+        <script th:src="@{/vendor/datatables/dataTables.bootstrap4.min.js}"></script>
+
+        <!-- Page level custom scripts -->
+        <script th:src="@{/js/demo/datatables-demo.js}"></script>
+    </body>
+
+</html>

@@ -27,4 +27,5 @@ public interface BookRepository extends JpaRepository<Book, String> {
     @Query("SELECT a FROM Book a WHERE a.author.name LIKE :author ")
     void findByAuthor(@Param("author") String name);
 
+    
 }

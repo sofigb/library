@@ -31,6 +31,19 @@ public class AuthorService {
         author.setStatus(true);
         authorRep.save(author);
     }
+    public Author returnAuthor(String name) throws MyExceptionService {
+        try {
+            Validation.validationService(name);
+        } catch (MyExceptionService e) {
+            throw MyExceptionService.nameAuthor();
+        }
+
+        Author author = new Author();
+        author.setName(name);
+        author.setStatus(true);
+        authorRep.save(author);
+        return author;
+    }
     @Transactional
     public void crearAuthor(Author au){
         authorRep.save(au);

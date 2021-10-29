@@ -29,6 +29,21 @@ public class EditorialService {
         editorial.setStatus(true);
         editorialRep.save(editorial);
     }
+    
+    @Transactional
+    public Editorial returnEditorial(String name)  {
+//        try {
+//            Validation.validationService(name);
+//        } catch (MyExceptionService e) {
+//            throw MyExceptionService.nameAuthor();
+//        }
+
+        Editorial editorial = new Editorial();
+        editorial.setName(name);
+        editorial.setStatus(true);
+        editorialRep.save(editorial);
+        return editorial;
+    }
 //NO ESTOY USANDO MI QUERY ESPECIAL PARA ESTO
 
     @Transactional

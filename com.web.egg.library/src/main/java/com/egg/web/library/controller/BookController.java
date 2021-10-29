@@ -1,8 +1,7 @@
 
 package com.egg.web.library.controller;
 
-import com.egg.web.library.entity.Author;
-import com.egg.web.library.entity.Editorial;
+
 import com.egg.web.library.exception.MyExceptionService;
 import com.egg.web.library.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,23 +46,23 @@ public class BookController {
         return mav;
     }
 
-//    @GetMapping("/alta/{id}")
-//    public RedirectView alta(@PathVariable String id) {
-//        bservice.changeState(id, Boolean.TRUE);
-//        return new RedirectView("/autores");
-//    }
-//
-//    @GetMapping("/baja/{id}")
-//    public RedirectView baja(@PathVariable String id) {
-//        bservice.changeState(id, Boolean.FALSE);
-//        return new RedirectView("/autores");
-//    }
-//
-//    @PostMapping("/crear")
-//    public RedirectView crearAutor(@RequestParam String isbn, @RequestParam String title,@RequestParam Integer year,@RequestParam Integer copies,@RequestParam String author , @RequestParam String editorial) throws MyExceptionService {
-//       bservice.getBook( isbn,  title,  year,  copies,  author,  editorial);
-//        return new RedirectView("/autores");
-//    }
+    @GetMapping("/alta/{id}")
+    public RedirectView alta(@PathVariable String id) {
+        bservice.changeState(id, Boolean.TRUE);
+        return new RedirectView("/libros");
+    }
+
+    @GetMapping("/baja/{id}")
+    public RedirectView baja(@PathVariable String id) {
+        bservice.changeState(id, Boolean.FALSE);
+        return new RedirectView("/libros");
+    }
+
+    @PostMapping("/crear")
+    public RedirectView crearAutor(@RequestParam String isbn, @RequestParam String title,@RequestParam String year,@RequestParam String copies,@RequestParam String author , @RequestParam String editorial) throws MyExceptionService {
+       bservice.createBook(isbn, isbn, title, year, copies, author, editorial);
+        return new RedirectView("/libros");
+    }
 //    @PostMapping("/guardarNombre")
 //    public RedirectView modificarAuthor(@RequestParam String name, @RequestParam  String id) throws MyExceptionService {
 //        

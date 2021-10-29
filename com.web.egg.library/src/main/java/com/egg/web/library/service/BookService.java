@@ -26,19 +26,21 @@ public class BookService {
     private AuthorService authorSer;
 
     @Transactional
-    public void getBook(Long isbn, String title, Integer year, Integer copies, Author author, Editorial editorial) throws MyExceptionService {
-        try {
-            Validation.validationService(isbn, title, year, copies);
-        } catch (MyExceptionService e) {
-            throw new MyExceptionService();
-        }
+    public void createBook(String id, String isbn, String title, String year, String copies, String author,String editorial) throws MyExceptionService {
+//        try {
+//            Validation.validationService(isbn, title, year, copies);
+//        } catch (MyExceptionService e) {
+//            throw new MyExceptionService();
+//        }
+       
 
         Book book = new Book();
+        book.setIsbn(Long.parseLong(isbn));
         book.setTitle(title);
-        book.setYear(year);
-        book.setCopies(copies);
-        book.setAuthor(author);
-        book.setEditorial(editorial);
+        book.setYear(Integer.parseInt(year));
+        book.setCopies(Integer.parseInt(copies));
+        book.setAuthor(authorSer.returnAuthor(author));
+        book.setEditorial(editorialser.returnEditorial(editorial));
         book.setStatus(true);
         bookRep.save(book);
     }
@@ -65,6 +67,18 @@ public class BookService {
         book.setStatus(true);
         bookRep.save(book);
 
+    }
+     @Transactional
+    public void changeState(String id, Boolean status)  {
+//        try {
+//            Optional<Author> reponse = authorRep.findById(id);
+//            Validation.validationIDfound(id, reponse);
+//
+//        } catch (MyExceptionService e) {
+//            throw new MyExceptionService();
+//        }
+     
+      bookRep.changeStatus(id, status);
     }
 
     @Transactional
