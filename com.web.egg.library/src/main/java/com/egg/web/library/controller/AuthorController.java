@@ -68,7 +68,7 @@ public class AuthorController {
     private String altaAutor(@RequestParam String id) throws MyExceptionService {
      aservice.changeState(id, Boolean.TRUE);
         String mensaje = "El autor " + aservice.lookForId(id).getName() +" ha sido dado de alta";
-        final String json = "{\"id\":"+id+" ,\"mensaje\":\" "+mensaje+" \",\"status\":\""+Boolean.TRUE+"\"}";
+        final String json = "{\"mensaje\":\" "+mensaje+" \",\"status\":\""+Boolean.TRUE+"\"}";
         return json;
     }
 
@@ -83,14 +83,15 @@ public class AuthorController {
     private String bajaAutor(@RequestParam String id) throws MyExceptionService {
      aservice.changeState(id, Boolean.FALSE);
         String mensaje = "El autor " + aservice.lookForId(id).getName() +" ha sido dado de baja";
-        final String json = "{\"id\":"+id+" ,\"mensaje\":\" "+mensaje+" \",\"status\":\""+Boolean.FALSE+"\"}";
+        final String json = "{\"mensaje\":\" "+mensaje+" \",\"status\":\""+Boolean.FALSE+"\"}";
         return json;
     }
 
 
 
    @PostMapping("/crear_autor")
-       public  void crearAutor(@RequestBody String nombre)  {
+       public  void crearAutor(@RequestBody String nombre) {
+        nombre = nombre.replaceAll("\"","");
        Author unAutor = new Author();
        unAutor.setName(nombre);
        aservice.crearAuthor(unAutor);

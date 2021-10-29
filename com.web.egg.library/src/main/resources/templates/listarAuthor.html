@@ -506,8 +506,9 @@ botones.forEach(element=>{
         const xhr = new XMLHttpRequest();
          xhr.addEventListener("readystatechange", e=>{
              if(xhr.readyState === 4){
-                 if(xhr.status>=200 && xhr.status<300){
-                  let json =JSON.parse(xhr.responseText); /* convierto la cadena de texto en  un objeto javascript*/
+                 if(xhr.status>=200 && xhr.status<300){                
+                 let json =JSON.parse(xhr.responseText); /* convierto la cadena de texto en  un objeto javascript*/
+                 json.id = author.id;
                   document.getElementById("status_"+json.id).innerText= json.status;
                   if(json.status==="false"){
                     this.setAttribute("class","estado btn btn-success btn-icon-split");
@@ -552,6 +553,17 @@ botones.forEach(element=>{
   });
 
 
+
+  function obtenerJsonResponse(response,author){
+    const json ={
+         id: author.id,
+         name: this.parentElement.parentElement.children[1].textContent,
+         status: this.parentElement.parentElement.children[2].textContent
+       } 
+
+    alert(response);
+
+  }
 
 
 
