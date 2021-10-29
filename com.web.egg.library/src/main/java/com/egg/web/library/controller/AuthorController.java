@@ -5,10 +5,13 @@ import com.egg.web.library.entity.Author;
 import com.egg.web.library.exception.MyExceptionService;
 import com.egg.web.library.repository.AuthorRepository;
 import com.egg.web.library.service.AuthorService;
-
+import java .util.regex.*;
 import java.text.MessageFormat;
 import java.util.List;
+
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -49,6 +52,7 @@ public class AuthorController {
         List <Author> usuarios = aservice.findAll();
         return usuarios;
     }
+
     @GetMapping("/mostrarAutores")
    public ModelAndView MostrarAuthor() {
         ModelAndView mav = new ModelAndView("listarAuthor");
@@ -90,8 +94,11 @@ public class AuthorController {
 
 
    @PostMapping("/crear_autor")
-       public  void crearAutor(@RequestBody String nombre) {
-        nombre = nombre.replaceAll("\"","");
+       public  void crearAutor(@RequestBody String nombre){
+       Pattern pat = Pattern.compile("[a-zA-Z]");
+       nombre = nombre.replaceAll("\"","");
+       Matcher mat = pat.matcher(nombre);
+       //if(mat.matches())
        Author unAutor = new Author();
        unAutor.setName(nombre);
        aservice.crearAuthor(unAutor);
@@ -111,20 +118,19 @@ public class AuthorController {
         Author autor = getFooById(id);
         ModelAndView mav = new ModelAndView("modificarAuthor");
         mav.addObject("title", "modificarAuthor");
-        mav.addObject("autor", autor);
+        mav.addObject("id", id);
         return mav;
     }
 
 
-    @PutMapping("/modificar")
-    public void modificar(@RequestBody String autor){
-         Author unAutor = new Author();
-         unAutor.setId(autor.split(",")[0].split(":")[1]);
-         unAutor.setName(autor.split(",")[1].split(":")[1]);
-         unAutor.setStatus(Boolean.getBoolean(autor.split(",")[2].split(":")[1]));
-        aservice.modificarAuthor(unAutor);
-
+    @PutMapping(value = "/modificar", consumes = {MediaType.APPLICATION_JSON_VALUE})
+    public void modificar(@RequestBody String json){
+       JSONObject myJson = new JSONObject(json);
+       Author unAutor = getFooById(myJson.get("id").toString());
+       unAutor.setName(myJson.get("nombre").toString());
+       aservice.crearAuthor(unAutor);
     }
+
 
     @GetMapping("/obtenerAutor")
     public Author getFooById(@RequestParam String id) {
