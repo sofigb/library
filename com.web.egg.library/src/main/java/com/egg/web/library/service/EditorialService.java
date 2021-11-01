@@ -1,6 +1,5 @@
 package com.egg.web.library.service;
 
-import com.egg.web.library.entity.Author;
 import com.egg.web.library.entity.Editorial;
 import com.egg.web.library.exception.MyExceptionService;
 import com.egg.web.library.repository.EditorialRepository;
@@ -92,4 +91,22 @@ public class EditorialService {
     public List<Editorial> findAll() {
         return editorialRep.findAll();
     }
+
+    @Transactional(readOnly = true)
+    public List<Editorial> obtenerEditoriales() {
+        return editorialRep.listarEditoriales();
+    }
+
+    @Transactional(readOnly = false)
+    public String activarEditorial(String id) {
+       return editorialRep.activarEditorial(id);
+    }
+
+    @Transactional(readOnly = false)
+    public String desactivarEditorial(String id) {
+        return editorialRep.desactivarEditorial(id);
+    }
+
+
+
 }

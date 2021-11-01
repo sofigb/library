@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 
 import java.util.ArrayList;
@@ -27,6 +28,61 @@ public class EditorialController {
     private List <Editorial> listaEditoriales() {
         List <Editorial> editoriales = eService.findAll();
         return editoriales;
+    }
+
+
+    @GetMapping(value="/listarEditoriales2",produces = {MediaType.APPLICATION_JSON_VALUE})
+    private List <Editorial> listaEditorialesSp() {
+        List <Editorial> editoriales = eService.obtenerEditoriales();
+        return editoriales;
+    }
+
+    @GetMapping(value="/altaEditorialSp",produces = MediaType.APPLICATION_JSON_VALUE)
+    private String ActivarEditorialSP(@RequestParam String id)  {
+        JSONObject myJson = new JSONObject();
+        String mensaje = eService.activarEditorial(id);
+        if(mensaje.equals("OK")){
+            myJson.put("message","La editorial  ha sido activado");
+            myJson.put("descripcion","Desactivar");
+            myJson.put("status","true");
+        }else{
+            myJson.put("message", mensaje);
+            myJson.put("descripcion","Error");
+            myJson.put("status","Error");
+        }
+        return myJson.toString();
+    }
+
+
+
+    @GetMapping(value="/desactivarEditorialSp",produces = MediaType.APPLICATION_JSON_VALUE)
+    private String DesactivarEditorialSP(@RequestParam String id)  {
+        JSONObject myJson = new JSONObject();
+        String mensaje = eService.desactivarEditorial(id);
+        if(mensaje.equals("OK")){
+            myJson.put("message","La editorial  ha sido dada desactivado");
+            myJson.put("descripcion","Activar");
+            myJson.put("status","false");
+        }else{
+            myJson.put("message",mensaje);
+            myJson.put("descripcion","Error");
+            myJson.put("status","Error");
+        }
+        return myJson.toString();
+    }
+
+
+
+
+
+
+
+    @GetMapping("/mostrarEditoriales")
+    public ModelAndView MostrarEditoriales() {
+        ModelAndView mav = new ModelAndView("listarEditorial");
+        mav.addObject("title", "listarEditoriales");
+        mav.addObject("editoriales", listaEditoriales());
+        return mav;
     }
 
 
@@ -78,17 +134,10 @@ public class EditorialController {
 
 
 
-    /*
-
-    @GetMapping("/mostrarAutores")
-    public ModelAndView MostrarAuthor() {
-        ModelAndView mav = new ModelAndView("listarAuthor");
-        mav.addObject("title", "listarAuthor");
-        mav.addObject("autores", listaAuthor());
-        return mav;
-    }
 
 
+
+  /*
 
     @GetMapping("/altaAutor")
     private String altaAutor(@RequestParam String id) throws MyExceptionService {

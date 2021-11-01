@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface EditorialRepository extends JpaRepository<Editorial, String> {
 
@@ -16,6 +18,17 @@ public interface EditorialRepository extends JpaRepository<Editorial, String> {
 
     @Query("SELECT e FROM Editorial e WHERE e.name = :name ")
     void findByName(@Param("name") String name);
+
+    @Query(value = "CALL listarEditorial();", nativeQuery = true)
+    List<Editorial> listarEditoriales();
+
+    @Query(value = "CALL activarEditorial(:idEditorial);", nativeQuery = true)
+    String activarEditorial(@Param("idEditorial") String idEditorial);
+
+    @Query(value = "CALL desactivarEditorial(:idEditorial);", nativeQuery = true)
+    String desactivarEditorial(@Param("idEditorial") String idEditorial);
+
+
 
 //    @Modifying
 //    @Query("UPDATE Editorial e SET e.status = :status WHERE e.id = :id")
