@@ -4,9 +4,7 @@ import com.egg.web.library.entity.Book;
 import com.egg.web.library.entity.Author;
 import com.egg.web.library.entity.Editorial;
 import com.egg.web.library.exception.MyExceptionService;
-import com.egg.web.library.repository.AuthorRepository;
 import com.egg.web.library.repository.BookRepository;
-import com.egg.web.library.repository.EditorialRepository;
 import com.egg.web.library.validation.Validation;
 import java.util.List;
 import java.util.Optional;
@@ -26,7 +24,7 @@ public class BookService {
     private AuthorService authorSer;
 
     @Transactional
-    public void createBook(String id, String isbn, String title, String year, String copies, String author,String editorial) throws MyExceptionService {
+    public void createBook( Long isbn, String title, Integer year, Integer copies, String author,String editorial) throws MyExceptionService {
 //        try {
 //            Validation.validationService(isbn, title, year, copies);
 //        } catch (MyExceptionService e) {
@@ -34,11 +32,11 @@ public class BookService {
 //        }
        
 
-        Book book = new Book();
-        book.setIsbn(Long.parseLong(isbn));
+        Book book = new Book(); 
+        book.setIsbn(isbn);
         book.setTitle(title);
-        book.setYear(Integer.parseInt(year));
-        book.setCopies(Integer.parseInt(copies));
+        book.setYear(year);
+        book.setCopies(copies); 
         book.setAuthor(authorSer.returnAuthor(author));
         book.setEditorial(editorialser.returnEditorial(editorial));
         book.setStatus(true);
@@ -47,23 +45,24 @@ public class BookService {
 //NO ESTOY USANDO MI QUERY ESPECIAL PARA ESTO
 
     @Transactional
-    public void modifyBook(String id, Long isbn, String title, Integer year, Integer copies, Author author, Editorial editorial) throws MyExceptionService {
-        try {
-            Validation.validationService(isbn, title, year, copies);
-            Optional<Book> reponse = bookRep.findById(id);
-            Validation.validationIDfound(id, reponse);
-
-        } catch (MyExceptionService e) {
-            throw new MyExceptionService();
-        }
+    public void modifyBook(String id, Long isbn, String title, Integer year, Integer copies, String author,String editorial) throws MyExceptionService {
+//        try {
+//            Validation.validationService(isbn, title, year, copies);
+//            Optional<Book> reponse = bookRep.findById(id);
+//            Validation.validationIDfound(id, reponse);
+//
+//        } catch (MyExceptionService e) {
+//            throw new MyExceptionService();
+//        }
 
         Book book = bookRep.findById(id).get();
 
+       book.setIsbn(isbn);
         book.setTitle(title);
         book.setYear(year);
-        book.setCopies(copies);
-        book.setAuthor(author);
-        book.setEditorial(editorial);
+        book.setCopies(copies); 
+        book.setAuthor(authorSer.returnAuthor(author));
+        book.setEditorial(editorialser.returnEditorial(editorial));
         book.setStatus(true);
         bookRep.save(book);
 

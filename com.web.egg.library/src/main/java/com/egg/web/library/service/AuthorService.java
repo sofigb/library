@@ -31,24 +31,31 @@ public class AuthorService {
         author.setStatus(true);
         authorRep.save(author);
     }
-    public Author returnAuthor(String name) throws MyExceptionService {
-        try {
-            Validation.validationService(name);
-        } catch (MyExceptionService e) {
-            throw MyExceptionService.nameAuthor();
+
+    public Author returnAuthor(String idname) throws MyExceptionService {
+
+        if (authorRep.findById(idname).isPresent()) {
+
+            return (authorRep.save(authorRep.findById(idname).get()));
+        } else {
+
+            createAuthor(idname);
+
+            Author author = new Author();
+            author.setName(idname);
+            author.setStatus(true);
+            authorRep.save(author);
+            return (author);
         }
 
-        Author author = new Author();
-        author.setName(name);
-        author.setStatus(true);
-        authorRep.save(author);
-        return author;
     }
+
     @Transactional
-    public void crearAuthor(Author au){
+    public void crearAuthor(Author au) {
         authorRep.save(au);
     }
 //NO ESTOY USANDO MI QUERY ESPECIAL PARA ESTO
+
     @Transactional
     public void modifyName(String id, String name) throws MyExceptionService {
         try {
@@ -67,7 +74,7 @@ public class AuthorService {
     }
 
     @Transactional
-    public void changeState(String id, Boolean status)  {
+    public void changeState(String id, Boolean status) {
 //        try {
 //            Optional<Author> reponse = authorRep.findById(id);
 //            Validation.validationIDfound(id, reponse);
@@ -75,8 +82,8 @@ public class AuthorService {
 //        } catch (MyExceptionService e) {
 //            throw new MyExceptionService();
 //        }
-     
-      authorRep.changeStatus(id, status);
+
+        authorRep.changeStatus(id, status);
     }
 
     @Transactional(readOnly = true)
@@ -86,14 +93,20 @@ public class AuthorService {
     }
 
     @Transactional(readOnly = true)
+    public List<Author> listAuthor() {
+        return authorRep.findAll();
+    }
+
+    @Transactional(readOnly = true)
     public List<Author> findAll() {
         return authorRep.findAll();
     }
+
     @Transactional(readOnly = true)
     public List<Author> findAllH() {
-        return authorRep.findAll().stream().filter(author -> author.getStatus()== true).collect(Collectors.toList());
+        return authorRep.findAll().stream().filter(author -> author.getStatus() == true).collect(Collectors.toList());
     }
-   
+
 //   Nose como buscar por nombre !  
     //@Transactional(readOnly = true)
 //    public Author findByName(String name) {

@@ -31,18 +31,22 @@ public class EditorialService {
     }
     
     @Transactional
-    public Editorial returnEditorial(String name)  {
-//        try {
-//            Validation.validationService(name);
-//        } catch (MyExceptionService e) {
-//            throw MyExceptionService.nameAuthor();
-//        }
+    public Editorial returnEditorial(String idname)  {
 
-        Editorial editorial = new Editorial();
-        editorial.setName(name);
-        editorial.setStatus(true);
-        editorialRep.save(editorial);
-        return editorial;
+        if (editorialRep.findById(idname).isPresent()) {
+
+            return (editorialRep.save(editorialRep.findById(idname).get()));
+        } else {
+
+            crearEditorial(idname);
+
+            Editorial editorial = new Editorial();
+            editorial.setName(idname);
+            editorial.setStatus(true);
+            editorialRep.save(editorial);
+            return (editorial);
+        }
+
     }
 //NO ESTOY USANDO MI QUERY ESPECIAL PARA ESTO
 

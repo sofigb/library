@@ -9,7 +9,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Modificar Autor</title>
+        <title>Modificar Libro</title>
 
         <!-- Custom fonts for this template -->
         <link th:href="@{/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
@@ -33,19 +33,65 @@
                 <div class="card-body p-0">
                     <!-- Nested Row within Card Body -->
                     <div class="row">
-                        <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
+                        <div class="col-lg-5 d-none d-lg-block "></div>
                         <div class="col-lg-7">
                             <div class="p-5">
                                 <div class="text-center">
                                     <h1 class="h4 text-gray-900 mb-4"> <span th:text="${title1}"></h1>
                                 </div>
-                                <form th:action="@{/autores/__${action}__}" method ="POST" class="user"  >
+                                <form th:action="@{/libros/__${action}__}" method ="POST" class="user"  >
+
+
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
-
-                                            <input  type="text"  class="form-control form-control-user"   name="name" 
-                                                    placeholder="Ingrese el nombre completo" th:value="${objeto.name}"/>
                                             <input  type="hidden"    name="id" th:value="${objeto.id}" />
+                                            <input  type="text"  class="form-control form-control-user"   name="isbn" 
+                                                    placeholder="Isbn" th:value="${objeto.isbn}"/>
+
+
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control form-control-user"  name="title" 
+                                                   placeholder="Titulo del libro" th:value="${objeto.title}" />
+
+                                        </div>
+                                        <div class="col-sm-6 mb-3 mb-sm-0">
+                                            <input type="text" class="form-control form-control-user"  name="year" 
+                                                   placeholder="Año de publicacion" th:value="${objeto.year}"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control form-control-user"  name="copies" 
+                                                   placeholder="Cantidad Ejemplares" th:value="${objeto.copies}" />
+                                        </div>
+                                        <div class="col-sm-6 mb-3 mb-sm-0">
+                                            <input type="text" class="form-control form-control-user"  name="idNameA" 
+                                                   placeholder="Elige autor" list="autorList" th:value="${objeto.author.name}"  />
+
+                                            <datalist id="autorList">
+
+
+                                                <option th:each="author : ${autores}" th:text="|${author.name}|"
+                                                        ></option>
+
+
+                                                </select>
+                                            </datalist>
+
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control form-control-user"  name="idNameE" 
+                                                   placeholder="Elige Editorial" list="editorialList" th:value="${objeto.editorial.name}" />
+
+                                            <datalist id="editorialList">
+
+
+                                                <option th:each="editorial : ${editoriales}" th:text="|${editorial.name}|"
+                                                        ></option>
+
+
+                                                </select>
+                                            </datalist>
+
                                         </div>
 
                                     </div>

@@ -9,7 +9,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>SB Admin 2 - Register</title>
+        <title>Registro Editorial</title>
 
         <!-- Custom fonts for this template -->
         <link th:href="@{/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
@@ -24,7 +24,7 @@
         <link th:href="@{/vendor/datatables/dataTables.bootstrap4.min.css}" rel="stylesheet">
 
     </head>
-    
+
     <body class="bg-gradient-primary">
         <div th:include="/show.html::header" ></div>
         <div class="container">
@@ -37,7 +37,7 @@
                         <div class="col-lg-7">
                             <div class="p-5">
                                 <div class="text-center">
-                                    <h1 class="h4 text-gray-900 mb-4">Crear <span th:text="${title1}"></h1>
+                                    <h1 class="h4 text-gray-900 mb-4">Crear Editorial</h1>
                                 </div>
                                 <form th:action="@{/editoriales/__${action}__}" method ="POST" class="user"  >
                                     <div class="form-group row">
@@ -54,13 +54,7 @@
 
 
                                 </form>
-                                <hr>
-                                <div class="text-center">
-                                    <a class="small" href="forgot-password.html">Forgot Password?</a>
-                                </div>
-                                <div class="text-center">
-                                    <a class="small" href="login.html">Already have an account? Login!</a>
-                                </div>
+
                             </div>
                         </div>
                     </div>

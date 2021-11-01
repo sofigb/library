@@ -9,7 +9,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>SB Admin 2 - Tables</title>
+        <title>Menu de Libros</title>
 
         <!-- Custom fonts for this template -->
         <link th:href="@{/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
@@ -30,9 +30,6 @@
         <!-- Page Wrapper -->
 
         <div id="wrapper">
-
-
-
 
             <!-- Content Wrapper -->
             <div id="content-wrapper" class="d-flex flex-column">
@@ -73,7 +70,6 @@
                                                         <th>Titulo</th>
                                                         <th>Año de publicacion</th>
                                                         <th>Cantidad Total</th>
-
                                                         <th>Estado</th>
                                                         <th>Autor</th>
                                                         <th>Editorial</th>
@@ -92,27 +88,16 @@
                                                         <td th:text="${obej.author.name}"></td>
                                                         <td th:text="${obej.editorial.name}"></td>
 
-                                                         <td > 
-                                                            <a   class="btn btn-info btn-circle btn-sm" th:href="@{__${href1}__/modificarNombre/__${obej.id}__}" title="Modificar Nombre">  <i class="fas fa-info-circle"></i> </a>
+                                                        <td > 
+                                                            <a   class="btn btn-info btn-circle btn-sm" th:href="@{libros/modificarLibro/__${obej.id}__}" title="Modificar">  <i class="fas fa-info-circle"></i> </a>
                                                             <div th:switch="${obej.status}">
 
+                                                                <a  th:case="true" class="btn btn-danger btn-circle btn-sm" th:href="@{libros/baja/__${obej.id}__}" title="Deshabilitar" >  <i class="fas fa-trash"></i> </a>
 
-
-                                                                <a  th:case="true" class="btn btn-danger btn-circle btn-sm" th:href="@{__${href1}__/baja/__${obej.id}__}" title="Deshabilitar" >  <i class="fas fa-trash"></i> </a>
-
-
-
-
-                                                                <a  th:case="false" class="btn btn-success btn-circle btn-sm" th:href="@{__${href1}__/alta/__${obej.id}__}" title="Habilitar" >  <i class="fas fa-check"></i> </a>
+                                                                <a  th:case="false" class="btn btn-success btn-circle btn-sm" th:href="@{libros/alta/__${obej.id}__}" title="Habilitar" >  <i class="fas fa-check"></i> </a>
                                                             </div>
 
-                                                        </td>     
-
-
-
-
-
-
+                                                            </                                                                                                                             td>     
 
                                                     </tr>
                                                 </tbody>
@@ -128,15 +113,7 @@
                 </div>
                 <!-- End of Main Content -->
 
-                <!-- Footer -->
-                <footer class="sticky-footer bg-white">
-                    <div class="container my-auto">
-                        <div class="copyright text-center my-auto">
-                            <span>Copyright &copy; Your Website 2020</span>
-                        </div>
-                    </div>
-                </footer>
-                <!-- End of Footer -->
+                <div th:include="/show.html::footer" ></div>
 
             </div>
             <!-- End of Content Wrapper -->
@@ -144,30 +121,9 @@
         </div>
         <!-- End of Page Wrapper -->
 
-        <!-- Scroll to Top Button-->
-        <a class="scroll-to-top rounded" href="#page-top">
-            <i class="fas fa-angle-up"></i>
-        </a>
 
-        <!-- Logout Modal-->
-        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-             aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                    <div class="modal-footer">
-                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                        <a class="btn btn-primary" href="login.html">Logout</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+
+
 
         <!-- Bootstrap core JavaScript-->
         <script th:src="@{/vendor/jquery/jquery.min.js}"></script>

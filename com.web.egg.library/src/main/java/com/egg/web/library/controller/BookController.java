@@ -3,7 +3,9 @@ package com.egg.web.library.controller;
 
 
 import com.egg.web.library.exception.MyExceptionService;
+import com.egg.web.library.service.AuthorService;
 import com.egg.web.library.service.BookService;
+import com.egg.web.library.service.EditorialService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,9 +21,13 @@ import org.springframework.web.servlet.view.RedirectView;
 public class BookController {
     @Autowired
     BookService bservice;
+    @Autowired
+    AuthorService aservice;
+     @Autowired
+    EditorialService eservice;
     
     @GetMapping()
-    public ModelAndView MostrarAuthor() {
+    public ModelAndView MostrarLibro() {
         ModelAndView mav = new ModelAndView("tablesBook");
         mav.addObject("libros", bservice.findAll());
         mav.addObject("href", "registrar");
@@ -31,18 +37,24 @@ public class BookController {
     }
 
     @GetMapping("/registrar")
-    public ModelAndView registrarAuthor() {
+    public ModelAndView registrarLibro() {
         ModelAndView mav = new ModelAndView("registerBook");
+        mav.addObject("autores",aservice.findAll() );
+        mav.addObject("editoriales",eservice.findAll() );
         mav.addObject("action", "crear");
         
         return mav;
     }
-    @GetMapping("/modificarNombre/{id}")
-    public ModelAndView modificarAuthor(@PathVariable String id) {
-        ModelAndView mav = new ModelAndView("modifyAuthor");   
+    @GetMapping("/modificarLibro/{id}")
+    public ModelAndView modificarLibro(@PathVariable String id) {
+        ModelAndView mav = new ModelAndView("modifyBook");   
+         mav.addObject("title1", "Cambios en Libros");
         mav.addObject("objeto", bservice.lookForId(id));
-        mav.addObject("action", "guardarNombre");
-        mav.addObject("title1", " Cambios en autores");
+        mav.addObject("autores",aservice.findAll() );
+        mav.addObject("editoriales",eservice.findAll() );
+        mav.addObject("action", "guardarCambios");
+        
+//        mav.addObject("title1", " Cambios en Libros");
         return mav;
     }
 
@@ -59,14 +71,15 @@ public class BookController {
     }
 
     @PostMapping("/crear")
-    public RedirectView crearAutor(@RequestParam String isbn, @RequestParam String title,@RequestParam String year,@RequestParam String copies,@RequestParam String author , @RequestParam String editorial) throws MyExceptionService {
-       bservice.createBook(isbn, isbn, title, year, copies, author, editorial);
+    public RedirectView crearAutor(@RequestParam Long isbn, @RequestParam String title,@RequestParam Integer year,@RequestParam Integer copies,@RequestParam String idNameA , @RequestParam String idNameE) throws MyExceptionService {
+       bservice.createBook(isbn, title, year, copies, idNameA, idNameE);
         return new RedirectView("/libros");
     }
-//    @PostMapping("/guardarNombre")
-//    public RedirectView modificarAuthor(@RequestParam String name, @RequestParam  String id) throws MyExceptionService {
-//        
-//        bservice.modifyName(id, name);
-//        return new RedirectView("/autores");
-//    }
+    @PostMapping("/guardarCambios")
+    public RedirectView modificarAuthor(@RequestParam String id,@RequestParam Long isbn, @RequestParam String title,@RequestParam Integer year,@RequestParam Integer copies,@RequestParam String idNameA , @RequestParam String idNameE) throws MyExceptionService  {
+        
+        bservice.modifyBook(id, isbn, title, year, copies, idNameA, idNameE);
+                
+        return new RedirectView("/libros");
+    }
 }

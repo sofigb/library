@@ -50,7 +50,7 @@ public class AuthorController {
         mav.addObject("title1", " Cambios en autores");
         return mav;
     }
-
+ 
     @GetMapping("/alta/{id}")
     public RedirectView alta(@PathVariable String id) {
         aservice.changeState(id, Boolean.TRUE);
