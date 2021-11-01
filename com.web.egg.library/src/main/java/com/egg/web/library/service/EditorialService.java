@@ -1,5 +1,6 @@
 package com.egg.web.library.service;
 
+import com.egg.web.library.entity.Author;
 import com.egg.web.library.entity.Editorial;
 import com.egg.web.library.exception.MyExceptionService;
 import com.egg.web.library.repository.EditorialRepository;
@@ -17,18 +18,36 @@ public class EditorialService {
     private EditorialRepository editorialRep;
 
     @Transactional
-    public void getEditorial(String name) throws MyExceptionService {
+    public void CrearEditorial(String name) throws MyExceptionService {
         try {
             Validation.validationService(name);
         } catch (MyExceptionService e) {
             throw MyExceptionService.nameAuthor();
         }
-
         Editorial editorial = new Editorial();
         editorial.setName(name);
         editorial.setStatus(true);
         editorialRep.save(editorial);
     }
+
+    @Transactional
+    public void CrearEditorial(Editorial ed){
+        editorialRep.save(ed);
+    }
+
+
+
+    @Transactional
+    public void changeState(String id, Boolean status) {
+        Editorial editorial = editorialRep.findById(id).get();
+        editorial.setStatus(status);
+        editorialRep.save(editorial);
+
+    }
+
+
+
+
 //NO ESTOY USANDO MI QUERY ESPECIAL PARA ESTO
 
     @Transactional
