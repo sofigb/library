@@ -31,22 +31,7 @@ public class AuthorController {
     AuthorService aservice;
      @Autowired
     AuthorRepository arep;
-    
-//    @GetMapping("/crear_autor")
-//    public ModelAndView crearAuthor() {
-//        ModelAndView mav = new ModelAndView("Author");
-////       mav.addObject("title", "CREAR");
-////        mav.addObject("action", "/guardar_a");
-//        return mav;
-//    }
-//    
-//    @PostMapping("/guardar_autor")
-//    
-//    public RedirectView guardarAuthor(@RequestParam String name) throws MyExceptionService{
-//        aservice.getAuthor(name);
-//        return new RedirectView ("/crear_autor");
-//    }
-    
+
     @GetMapping("/listarAutores")
     private List<Author> listaAuthor() {
         List <Author> usuarios = aservice.findAll();

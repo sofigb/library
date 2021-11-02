@@ -373,8 +373,8 @@
 
 
 
-                <a class="btn btn-info btn-icon-split" th:href="@{'/crearAutor'}">
-                    <span class="text"> Crear Autor</span>
+                <a class="btn btn-info btn-icon-split" th:href="@{'/crearEditorial'}">
+                    <span class="text"> Crear Editorial</span>
                 </a>
 
                 <!-- DataTales Example -->
@@ -403,7 +403,7 @@
                                     <td th:text="${autor.name}"></td>
                                     <td th:text="${autor.status}" th:id="'status_' + ${autor.id}"></td>
                                     <td>
-                                        <a th:href="@{'/modificarAutor?id='+${autor.id}}" class="btn btn-success btn-icon-split">                                            <span class="text">Modificar</span>
+                                        <a th:href="@{'/modificarEditorial?id='+${autor.id}}" class="btn btn-success btn-icon-split">                                            <span class="text">Modificar</span>
                                         </a>
                                         |
                                         <!--llave para activar y desactivar estado-->
