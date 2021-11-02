@@ -15,7 +15,7 @@ public interface EditorialRepository extends JpaRepository<Editorial, String> {
     void modifyName(@Param("id") String id, @Param("name") String name);
 
     @Query("SELECT e FROM Editorial e WHERE e.name = :name ")
-    void findByName(@Param("name") String name);
+    Editorial findByName(@Param("name") String name);
  
     @Modifying
     @Query("UPDATE Editorial e SET e.status = :status WHERE e.id = :id")

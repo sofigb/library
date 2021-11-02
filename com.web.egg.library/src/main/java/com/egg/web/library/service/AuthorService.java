@@ -33,21 +33,17 @@ public class AuthorService {
     }
 
     public Author returnAuthor(String idname) throws MyExceptionService {
-
         if (authorRep.findById(idname).isPresent()) {
 
-            return (authorRep.save(authorRep.findById(idname).get()));
+            return (authorRep.findById(idname).get());
         } else {
-
-            createAuthor(idname);
 
             Author author = new Author();
             author.setName(idname);
             author.setStatus(true);
-            authorRep.save(author);
-            return (author);
-        }
 
+            return (authorRep.save(author));
+        }
     }
 
     @Transactional

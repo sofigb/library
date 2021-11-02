@@ -33,7 +33,7 @@
                 <div class="card-body p-0">
                     <!-- Nested Row within Card Body -->
                     <div class="row">
-                        <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
+                        <div class="col-lg-5 d-none d-lg-block "></div>  <!-- bg-register-image -->
                         <div class="col-lg-7">
                             <div class="p-5">
                                 <div class="text-center">
@@ -70,7 +70,7 @@
                                             <datalist id="autorList">
 
                                                 <option th:each="author : ${autores}" th:text="|${author.name}|"
-                                                        ></option>
+                                                       th:value="${author.id}"  ></option>
                                                 </select>
                                             </datalist>
 
@@ -79,7 +79,7 @@
                                             <input type="text" class="form-control form-control-user"  name="idNameE" 
                                                    placeholder="Elige Editorial" list="editorialList">
                                             <datalist id="editorialList">
-                                                <option th:each="editorial : ${editoriales}" th:text="|${editorial.name}|"></option>
+                                                <option th:each="editorial : ${editoriales}" th:text="|${editorial.name}|"   th:value="${editorial.id}"></option>
                                                 </select>
                                             </datalist>
 

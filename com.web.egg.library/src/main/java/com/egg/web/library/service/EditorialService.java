@@ -33,21 +33,20 @@ public class EditorialService {
     @Transactional
     public Editorial returnEditorial(String idname)  {
 
-        if (editorialRep.findById(idname).isPresent()) {
+       if (editorialRep.findById(idname).isPresent()) {
 
-            return (editorialRep.save(editorialRep.findById(idname).get()));
+            return (editorialRep.findById(idname).get());
         } else {
 
-            crearEditorial(idname);
-
             Editorial editorial = new Editorial();
-            editorial.setName(idname);
-            editorial.setStatus(true);
-            editorialRep.save(editorial);
-            return (editorial);
-        }
+        editorial.setName(idname);
+        editorial.setStatus(true);
 
+            return (editorialRep.save(editorial));
+        }
     }
+
+    
 //NO ESTOY USANDO MI QUERY ESPECIAL PARA ESTO
 
     @Transactional
