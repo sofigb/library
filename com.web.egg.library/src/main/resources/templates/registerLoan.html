@@ -9,7 +9,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Modificar Autor</title>
+        <title>Registro Libro</title>
 
         <!-- Custom fonts for this template -->
         <link th:href="@{/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
@@ -24,35 +24,50 @@
         <link th:href="@{/vendor/datatables/dataTables.bootstrap4.min.css}" rel="stylesheet">
 
     </head>
-    <div th:include="/show.html::header" ></div>
-    <body class="bg-gradient-primary">
 
+    <body class="bg-gradient-primary">
+        <div th:include="/show.html::header" ></div>
         <div class="container">
 
             <div class="card o-hidden border-0 shadow-lg my-5">
                 <div class="card-body p-0">
                     <!-- Nested Row within Card Body -->
                     <div class="row">
-                        <div class="col-lg-5 d-none d-lg-block "></div><!-- bg-register-image -->
+                        <div class="col-lg-5 d-none d-lg-block "></div>  <!-- bg-register-image -->
                         <div class="col-lg-7">
                             <div class="p-5">
                                 <div class="text-center">
-                                    <h1 class="h4 text-gray-900 mb-4"> <span th:text="${title1}"></h1>
+                                    <h1 class="h4 text-gray-900 mb-4">Crear Prestamo</h1>
                                 </div>
-                                <form th:action="@{/autores/__${action}__}" method ="POST" class="user"  >
-                                    <div class="form-group row">
-                                        <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <input  type="hidden"    name="id" th:value="${objeto.id}" />
-                                            <input  type="text"  class="form-control form-control-user"   name="name" 
-                                                    placeholder="DNI" th:value="${objeto.name}"/>
-                                           
-                                        </div>
+                                <form th:action="@{/prestamos/__${action}__}" method ="POST" class="user"  >
+                                    
+                                        <div class="col-sm-6 mb-3 mb-sm-0 ">
+                                            <input type="text" class="form-control form-control-user"  name="idBook" 
+                                                   placeholder="Elige Libro" list="libroList">
 
-                                    </div>
-                                    <button 	type="submit" class="btn btn-primary btn-user btn-block"> 
-                                        Modificar <span th:text="${title1}"></button> 
+                                            <datalist id="libroList">
+
+                                                <option th:each="libro : ${libros}" th:text="|${libro.title}|"
+                                                       th:value="${libro.id}"  ></option>
+                                                </select>
+                                            </datalist>
+
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control form-control-user"  name="idCustomer" 
+                                                   placeholder="Elige Socio" list="socioList">
+                                            <datalist id="socioList">
+                                                <option th:each="socio : ${socios}" th:text="|${socio.name }|"   th:value="${socio.id}"></option>
+                                                </select>
+                                            </datalist>
+
+                                        </div>
+                                        <button 	type="submit" class="btn btn-primary btn-user btn-block"> 
+                                            Registrar Prestamo </button> 
+
 
                                 </form>
+                               
                             </div>
                         </div>
                     </div>

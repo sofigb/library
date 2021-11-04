@@ -53,6 +53,20 @@
                 <li class="nav-item">
                     <a class="nav-link collapsed" href="/" data-toggle="collapse" data-target="#collapseTwo"
                        aria-expanded="true" aria-controls="collapseTwo">
+                        <i class="far fa-address-card"></i>
+                        <span>Socios</span>
+                    </a>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Acciones:</h6>
+                            <a class="collapse-item" th:href="@{/socios}">Consultar Socios</a>
+                            <a class="collapse-item" th:href="@{/socios/registrar}">Registrar Socios</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="/" data-toggle="collapse" data-target="#collapseTwo"
+                       aria-expanded="true" aria-controls="collapseTwo">
                         <i class="fa fa-book"></i>
                         <span>Libro</span>
                     </a>
@@ -61,6 +75,20 @@
                             <h6 class="collapse-header">Acciones:</h6>
                             <a class="collapse-item" th:href="@{/libros}">Consultar libros</a>
                             <a class="collapse-item" th:href="@{/libros/registrar}">Registrar Libros</a>
+                        </div>
+                    </div>
+                </li>
+                 <li class="nav-item">
+                    <a class="nav-link collapsed" href="/" data-toggle="collapse" data-target="#collapseTwo"
+                       aria-expanded="true" aria-controls="collapseTwo">
+                        <i class="far fa-handshake"></i>
+                        <span>Prestamos</span>
+                    </a>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Acciones:</h6>
+                            <a class="collapse-item" th:href="@{/prestamos}">Consultar Prestamos</a>
+                            <a class="collapse-item" th:href="@{/prestamos/registrar}">Registrar Prestamos</a>
                         </div>
                     </div>
                 </li>
@@ -117,94 +145,96 @@
                 <div id="content">
 
                     <div th:include="/show.html::header" ></div>
-                   <div class="sidebar-brand d-flex align-items-center justify-content-center">Bienvenido a su Biblioteca Personal</div>
-
-                        <div class="col-lg-6 mb-4">
-                             
-                            <div class="card bg-success text-white shadow">
-                               
-                                    <img  th:src="@{/img/Biblioteca-por-colores.png}" 
-                                          width="1000"     height="380" >   
-                                 
-                             
-                            </div>
-                            
-                        </div >
-                       
-                                      
-   
-                        
-                    </div>
-                 <a  class="btn btn-outline-danger" th:href="@{/libros}">LIBROS</a>
-                    <a class="btn btn-outline-warning" th:href="@{/autores}">AUTORES</a>
-                    <a class="btn btn-outline-primary" th:href="@{/editoriales}">EDITORIALES</a>
-
+                    <div class="sidebar-brand d-flex align-items-center justify-content-center">Bienvenido a su Biblioteca Personal</div>
 
                     <div class="col-lg-6 mb-4">
 
+                        <div class="card bg-success text-white shadow">
+
+                            <img  th:src="@{/img/Biblioteca-por-colores.png}" 
+                                  width="1000"     height="380" >   
 
 
-                    </div>
+                        </div>
+
+                    </div >
+
+
+
+
                 </div>
+                <a  class="btn btn-outline-danger" th:href="@{/socios}">SOCIOS</a>
+                <a class="btn btn-outline-warning" th:href="@{/libtos}">LIBROS</a>
+                <a class="btn btn-outline-success" th:href="@{/prestamos}">PRESTAMO</a>
+                <a class="btn btn-outline-info" th:href="@{/autores}">AUTORES</a>
+                <a class="btn btn-outline-primary" th:href="@{/editoriales}">EDITORIALES</a>
 
-            </div>
-            <!-- /.container-fluid -->
 
-        </div>
-        <!-- End of Main Content -->
+                <div class="col-lg-6 mb-4">
 
-        <!-- Footer -->
-        <div th:include="/show.html::footer" ></div>
-        <!-- End of Footer -->
 
-        </div>
-        <!-- End of Content Wrapper -->
 
-        </div>
-        <!-- End of Page Wrapper -->
-
-        <!-- Scroll to Top Button-->
-        <a class="scroll-to-top rounded" href="#page-top">
-            <i class="fas fa-angle-up"></i>
-        </a>
-
-        <!-- Logout Modal-->
-        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-             aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                    <div class="modal-footer">
-                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                        <a class="btn btn-primary" href="login.html">Logout</a>
-                    </div>
                 </div>
             </div>
+
         </div>
+        <!-- /.container-fluid -->
 
-        <!-- Bootstrap core JavaScript-->
-        <script src="vendor/jquery/jquery.min.js"></script>
-        <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    </div>
+    <!-- End of Main Content -->
 
-        <!-- Core plugin JavaScript-->
-        <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <!-- Footer -->
+    <div th:include="/show.html::footer" ></div>
+    <!-- End of Footer -->
 
-        <!-- Custom scripts for all pages-->
-        <script src="js/sb-admin-2.min.js"></script>
+</div>
+<!-- End of Content Wrapper -->
 
-        <!-- Page level plugins -->
-        <script src="vendor/chart.js/Chart.min.js"></script>
+</div>
+<!-- End of Page Wrapper -->
 
-        <!-- Page level custom scripts -->
-        <script src="js/demo/chart-area-demo.js"></script>
-        <script src="js/demo/chart-pie-demo.js"></script>
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
 
-    </body>
+<!-- Logout Modal-->
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-primary" href="login.html">Logout</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap core JavaScript-->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Core plugin JavaScript-->
+<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+<!-- Custom scripts for all pages-->
+<script src="js/sb-admin-2.min.js"></script>
+
+<!-- Page level plugins -->
+<script src="vendor/chart.js/Chart.min.js"></script>
+
+<!-- Page level custom scripts -->
+<script src="js/demo/chart-area-demo.js"></script>
+<script src="js/demo/chart-pie-demo.js"></script>
+
+</body>
 
 </html>

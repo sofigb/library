@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+    import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
@@ -53,8 +53,7 @@ public class BookController {
         mav.addObject("autores",aservice.findAll() );
         mav.addObject("editoriales",eservice.findAll() );
         mav.addObject("action", "guardarCambios");
-        
-//        mav.addObject("title1", " Cambios en Libros");
+
         return mav;
     }
 
@@ -77,9 +76,8 @@ public class BookController {
     }
     @PostMapping("/guardarCambios")
     public RedirectView modificarAuthor(@RequestParam String id,@RequestParam Long isbn, @RequestParam String title,@RequestParam Integer year,@RequestParam Integer copies,@RequestParam String idNameA , @RequestParam String idNameE) throws MyExceptionService  {
-        
         bservice.modifyBook(id, isbn, title, year, copies, idNameA, idNameE);
-                
+              
         return new RedirectView("/libros");
     }
 }

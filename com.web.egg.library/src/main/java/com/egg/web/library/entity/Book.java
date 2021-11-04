@@ -27,6 +27,8 @@ public class Book {
     private Editorial editorial;
 
     public Book() {
+        this.borrowedCopies = 0;
+        this.remainingCopies =  copies;
     }
 
     public Book(String id, Long isbn, String title, Integer year, Integer copies, Integer borrowedCopies, Integer remainingCopies, boolean status, Author author, Editorial editorial) {
@@ -35,8 +37,8 @@ public class Book {
         this.title = title;
         this.year = year;
         this.copies = copies;
-        this.borrowedCopies = borrowedCopies;
-        this.remainingCopies = remainingCopies;
+        this.borrowedCopies = 0;
+        this.remainingCopies =   this.copies ;
         this.status = status;
         this.author = author;
         this.editorial = editorial;
@@ -91,7 +93,7 @@ public class Book {
     }
 
     public Integer getRemainingCopies() {
-        return remainingCopies;
+        return (this.copies-this.borrowedCopies);
     }
 
     public void setRemainingCopies(Integer remainingCopies) {

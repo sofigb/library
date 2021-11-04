@@ -51,7 +51,7 @@
                                                                                                   <!-- DataTales Example -->
                                                                                                   <div class="card shadow mb-4">
                                     <div class="card-header py-3">
-                                        <a class="m-0 font-weight-bold text-primary" th:href="@{libros/__${href}__}"><h6>+ Agregar nuev<span th:text="${title}"></h6></a>
+                                        <a class="m-0 font-weight-bold text-primary" th:href="@{socios/__${href}__}"><h6>+ Agregar nuev<span th:text="${title}"></h6></a>
 
                                     </div>
 
@@ -66,39 +66,31 @@
                                                 <thead>
                                                     <tr>
                                                         <th>Id</th>
-                                                        <th>Isbn</th>
-                                                        <th>Titulo</th>
-                                                        <th>Año de publicacion</th>
-                                                        <th>Cantidad Total</th>
-                                                        <th>Cantidad Prestados</th>
-                                                        <th>Cantidad Restante</th>
-                                                        <th>Estado</th>
-                                                        <th>Autor</th>
-                                                        <th>Editorial</th>
+                                                        <th>DNI</th>
+                                                        <th>Nombre</th>
+                                                        <th>Apellido</th>
+                                                        <th>Telefono</th>
+                                                        <th>Estado</th>                                                 
                                                         <th>Acciones</th>
                                                     </tr>
 
                                                 </thead>
                                                 <tbody>
-                                                    <tr th:each="obej : ${libros}">
+                                                    <tr th:each="obej : ${socios}">
                                                         <td th:text="${obej.id}"></td>
-                                                        <td th:text="${obej.isbn}"></td>
-                                                        <td th:text="${obej.title}"></td>
-                                                        <td th:text="${obej.year}"></td>
-                                                        <td th:text="${obej.copies}"></td>
-                                                        <td th:text="${obej.borrowedCopies}"></td>
-                                                        <td th:text="${obej.remainingCopies}"></td>
+                                                        <td th:text="${obej.dni}"></td>
+                                                        <td th:text="${obej.name}"></td>
+                                                        <td th:text="${obej.surname}"></td>
+                                                        <td th:text="${obej.phone}"></td>
                                                         <td th:text="${obej.status}"></td>
-                                                        <td th:text="${obej.author.name}"></td>
-                                                        <td th:text="${obej.editorial.name}"></td>
-
+                                                       
                                                         <td > 
-                                                            <a   class="btn btn-info btn-circle btn-sm" th:href="@{libros/modificarLibro/__${obej.id}__}" title="Modificar">  <i class="fas fa-info-circle"></i> </a>
+                                                            <a   class="btn btn-info btn-circle btn-sm" th:href="@{socios/modificarSocios/__${obej.id}__}" title="Modificar">  <i class="fas fa-info-circle"></i> </a>
                                                             <div th:switch="${obej.status}">
 
-                                                                <a  th:case="true" class="btn btn-danger btn-circle btn-sm" th:href="@{libros/baja/__${obej.id}__}" title="Deshabilitar" >  <i class="fas fa-trash"></i> </a>
+                                                                <a  th:case="true" class="btn btn-danger btn-circle btn-sm" th:href="@{socios/baja/__${obej.id}__}" title="Deshabilitar" >  <i class="fas fa-trash"></i> </a>
 
-                                                                <a  th:case="false" class="btn btn-success btn-circle btn-sm" th:href="@{libros/alta/__${obej.id}__}" title="Habilitar" >  <i class="fas fa-check"></i> </a>
+                                                                <a  th:case="false" class="btn btn-success btn-circle btn-sm" th:href="@{socios/alta/__${obej.id}__}" title="Habilitar" >  <i class="fas fa-check"></i> </a>
                                                             </div>
 
                                                             </                                                                                                                             td>     

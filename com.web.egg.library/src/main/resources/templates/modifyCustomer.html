@@ -39,18 +39,28 @@
                                 <div class="text-center">
                                     <h1 class="h4 text-gray-900 mb-4"> <span th:text="${title1}"></h1>
                                 </div>
-                                <form th:action="@{/autores/__${action}__}" method ="POST" class="user"  >
+                                <form th:action="@{/socios/__${action}__}" method ="POST" class="user"  >
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
                                             <input  type="hidden"    name="id" th:value="${objeto.id}" />
-                                            <input  type="text"  class="form-control form-control-user"   name="name" 
-                                                    placeholder="DNI" th:value="${objeto.name}"/>
-                                           
+                                            <input  type="text"  class="form-control form-control-user"   name="dni" 
+                                                    placeholder="DNI" th:value="${objeto.dni}"/>
+                                        </div>
+                                        <div class="form-group"> <input  type="text"  class="form-control form-control-user"   name="name" 
+                                                                         placeholder="Nombre" th:value="${objeto.name}"/></div>
+                                        <div class="col-sm-6 mb-3 mb-sm-0">  
+                                            <input  type="text"  class="form-control form-control-user"   name="surname" 
+                                                    placeholder="Apellido" th:value="${objeto.surname}"/>
+                                        </div>
+                                        <div class="form-group">    
+                                            <input  type="text"  class="form-control form-control-user"   name="phone" 
+                                                    placeholder="Telefono" th:value="${objeto.phone}"/>
+
                                         </div>
 
-                                    </div>
-                                    <button 	type="submit" class="btn btn-primary btn-user btn-block"> 
-                                        Modificar <span th:text="${title1}"></button> 
+
+                                        <button 	type="submit" class="btn btn-primary btn-user btn-block"> 
+                                            Modificar <span th:text="${title1}"></button> 
 
                                 </form>
                             </div>

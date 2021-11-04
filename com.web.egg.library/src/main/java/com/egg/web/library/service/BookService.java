@@ -1,8 +1,6 @@
 package com.egg.web.library.service;
-
+import java.util.stream.Collectors;
 import com.egg.web.library.entity.Book;
-import com.egg.web.library.entity.Author;
-import com.egg.web.library.entity.Editorial;
 import com.egg.web.library.exception.MyExceptionService;
 import com.egg.web.library.repository.BookRepository;
 import com.egg.web.library.validation.Validation;
@@ -105,4 +103,17 @@ public class BookService {
     public List<Book> findAll() {
         return bookRep.findAll();
     }
+    @Transactional(readOnly = true)
+    public List<Book> bookInStock() {
+       
+        return bookRep.findAll().stream().filter(book -> book.getRemainingCopies()>0).collect(Collectors.toList());
+    }
+    @Transactional
+    public void borrowedCopies(String id) {
+        Book book =bookRep.findById(id).get();
+        
+        book.setBorrowedCopies(book.getBorrowedCopies()+1);
+        bookRep.save(book);
+    }
+   
 }

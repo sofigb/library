@@ -1,25 +1,22 @@
 package com.egg.web.library.controller;
-
-import com.egg.web.library.entity.Author;
+import org.springframework.validation.BindingResult;
 import com.egg.web.library.exception.MyExceptionService;
-import com.egg.web.library.repository.AuthorRepository;
 import com.egg.web.library.service.AuthorService;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.RedirectView;
 
 @RestController
 @RequestMapping("/autores")
-public class AuthorController {
+public class AuthorController implements WebMvcConfigurer {
 
     @Autowired
     AuthorService aservice;
@@ -31,7 +28,7 @@ public class AuthorController {
         mav.addObject("href1", "autores");
         mav.addObject("href", "registrar");
         mav.addObject("title", "o Autor");
-        mav.addObject("title1", "Autores"); 
+        mav.addObject("title1", "Autores");
         return mav;
     }
 
@@ -39,18 +36,19 @@ public class AuthorController {
     public ModelAndView registrarAuthor() {
         ModelAndView mav = new ModelAndView("registerAuthor");
         mav.addObject("action", "crear");
-        
+
         return mav;
     }
+
     @GetMapping("/modificarNombre/{id}")
     public ModelAndView modificarAuthor(@PathVariable String id) {
-        ModelAndView mav = new ModelAndView("modifyAuthor");   
+        ModelAndView mav = new ModelAndView("modifyAuthor");
         mav.addObject("objeto", aservice.lookForId(id));
         mav.addObject("action", "guardarNombre");
         mav.addObject("title1", " Cambios en autores");
         return mav;
     }
- 
+
     @GetMapping("/alta/{id}")
     public RedirectView alta(@PathVariable String id) {
         aservice.changeState(id, Boolean.TRUE);
@@ -64,15 +62,21 @@ public class AuthorController {
     }
 
     @PostMapping("/crear")
-    public RedirectView crearAutor(@RequestParam String name) throws MyExceptionService {
+    public RedirectView crearAutor(@Valid @RequestParam String name) throws MyExceptionService {
+//        if (bindingResult.hasErrors()) {
+//            return "registrar";
+//            
+//            
+//        }
         aservice.createAuthor(name);
         return new RedirectView("/autores");
+
     }
+
     @PostMapping("/guardarNombre")
-    public RedirectView modificarAuthor(@RequestParam String name, @RequestParam  String id) throws MyExceptionService {
-        
+    public RedirectView modificarAuthor(@Valid @RequestParam String name, @RequestParam String id) throws MyExceptionService {
+
         aservice.modifyName(id, name);
         return new RedirectView("/autores");
     }
 }
-
