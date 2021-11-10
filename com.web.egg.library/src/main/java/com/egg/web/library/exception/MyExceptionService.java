@@ -9,14 +9,14 @@ public class MyExceptionService extends Exception {
         super(ms);
     }
 
-    public static MyExceptionService nameAuthor() {
+    public static MyExceptionService name() {
 
-        return new MyExceptionService("El nombre del autor es obligatorio");
+        return new MyExceptionService("El nombre  es obligatorio");
     }
 
-    public static MyExceptionService nameEditorial() {
+    public static MyExceptionService nameFormat() {
 
-        return new MyExceptionService("El nombre de la editorial es obligatorio");
+        return new MyExceptionService("El campo solo puede contener Letras");
     }
      public static MyExceptionService idNotFound() {
 

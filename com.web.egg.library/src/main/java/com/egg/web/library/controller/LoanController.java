@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.web.bind.annotation.RequestParam;
+
 @RestController
 @RequestMapping("/prestamos")
 public class LoanController {
@@ -22,15 +23,26 @@ public class LoanController {
     @Autowired
     LoanService lService;
     @Autowired
-    BookService bService;
+    BookService bService;        
 
     @GetMapping()
     public ModelAndView MostrarPrestamos() {
         ModelAndView mav = new ModelAndView("tablesLoan");
-        mav.addObject("prestamos", lService.findAll());
+        mav.addObject("prestamos", lService.findAllTrue());
         mav.addObject("href", "registrar");
         mav.addObject("title", "o Prestamo");
         mav.addObject("title1", "Prestamo");
+        return mav;
+    }
+
+    @GetMapping("/devueltos")
+    public ModelAndView MostrarPrestamosDevueltos() {
+        ModelAndView mav = new ModelAndView("tablesLoan");
+        mav.addObject("prestamos", lService.findAllFalse());
+      
+      
+        mav.addObject("title1", "Devoluciones");
+        mav.addObject("action", "baja");
         return mav;
     }
 
@@ -43,34 +55,36 @@ public class LoanController {
 
         return mav;
     }
-    
+
     @GetMapping("/modificar/{id}")
     public ModelAndView modificarLibro(@PathVariable String id) {
-        ModelAndView mav = new ModelAndView("modifyLoan");   
-         mav.addObject("title1", "Cambios en Prestamo");
-         mav.addObject("objeto", lService.lookForId(id));
-         mav.addObject("libros", bService.bookInStock());
+        ModelAndView mav = new ModelAndView("modifyLoan");
+        mav.addObject("title1", "Cambios en Prestamo");
+        mav.addObject("objeto", lService.lookForId(id));
+        mav.addObject("libros", bService.bookInStock());
         mav.addObject("socios", cService.notBussy());
-       mav.addObject("action", "guardarCambios");
+        mav.addObject("action", "guardarCambios");
 
         return mav;
     }
-//    @GetMapping("/baja/{id}")
-//    public RedirectView baja(@PathVariable String id) {
-//        lService.changeState(id, Boolean.FALSE);
-//        return new RedirectView("/libros");
-//    }
-    
-    @PostMapping("/crear")
-    public RedirectView crearPrestamo( @RequestParam String idBook, @RequestParam String idCustomer) throws MyExceptionService {
-      lService.createLoad(idBook, idCustomer);
+
+    @GetMapping("/baja/{id}")
+    public RedirectView baja(@PathVariable String id) {
+        lService.changeState(id, Boolean.FALSE);
+
         return new RedirectView("/prestamos");
     }
-    
+
+    @PostMapping("/crear")
+    public RedirectView crearPrestamo(@RequestParam String idBook, @RequestParam String idCustomer) throws MyExceptionService {
+        lService.createLoad(idBook, idCustomer);
+        return new RedirectView("/prestamos");
+    }
+
     @PostMapping("/guardarCambios")
-    public RedirectView modificarAuthor(@RequestParam String id,@RequestParam String idBook, @RequestParam String idCustomer)   {
+    public RedirectView modificarAuthor(@RequestParam String id, @RequestParam String idBook, @RequestParam String idCustomer) {
         lService.modifyLoad(id, idBook, idCustomer);
-              
+
         return new RedirectView("/prestamos");
     }
 }

@@ -1,6 +1,7 @@
 package com.egg.web.library.entity;
 
 import java.util.Date;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
@@ -19,13 +20,18 @@ public class Loan {
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
+
     @CreatedDate
+    @Column(nullable = false, updatable = false) //updatable = es que no se puede modificar
     private Date dateLoan;
+
     @LastModifiedDate
     private Date dateDev;
     private Boolean status;
+
     @ManyToOne
     private Book book;
+
     @ManyToOne
     private Customer customer;
 

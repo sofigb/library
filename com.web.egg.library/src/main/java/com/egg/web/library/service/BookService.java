@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class BookService {
-    //    consulta, creación, modificación y dar de baja
+   
 
     @Autowired
     private BookRepository bookRep;
@@ -113,6 +113,13 @@ public class BookService {
         Book book =bookRep.findById(id).get();
         
         book.setBorrowedCopies(book.getBorrowedCopies()+1);
+        bookRep.save(book);
+    }
+    @Transactional
+    public void devCopies(String id) {
+        Book book =bookRep.findById(id).get();
+        
+        book.setBorrowedCopies(book.getBorrowedCopies()-1);
         bookRep.save(book);
     }
    

@@ -5,6 +5,7 @@ import com.egg.web.library.repository.BookRepository;
 import com.egg.web.library.repository.CustomerRepository;
 import com.egg.web.library.repository.LoanRepository;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,7 +27,16 @@ public class LoanService {
         loan.setCustomer(customerSer.lookForId(idCustomer));
         customerSer.changeBussy(idCustomer, Boolean.TRUE);
         bookSer.borrowedCopies(idbook);
+        loan.setStatus(true);
         loanRep.save(loan);
+    }
+
+    @Transactional
+    public void changeState(String id, Boolean status) {
+        
+        customerSer.changeBussy(loanRep.findById(id).get().getCustomer().getId() ,Boolean.FALSE);
+        bookSer.devCopies(loanRep.findById(id).get().getBook().getId());
+        loanRep.changeStatus(id, status);
     }
 
     @Transactional
@@ -38,8 +48,13 @@ public class LoanService {
     }
 
     @Transactional(readOnly = true)
-    public List<Loan> findAll() {
-        return loanRep.findAll();
+    public List<Loan> findAllTrue() {
+        return loanRep.findAll().stream().filter(loan -> loan.getStatus()==true).collect(Collectors.toList());
+    }
+    
+     @Transactional(readOnly = true)
+    public List<Loan> findAllFalse() {
+        return loanRep.findAll().stream().filter(loan -> loan.getStatus()==false).collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)

@@ -1,4 +1,5 @@
 package com.egg.web.library.controller;
+
 import org.springframework.validation.BindingResult;
 import com.egg.web.library.exception.MyExceptionService;
 import com.egg.web.library.service.AuthorService;
@@ -9,14 +10,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.RedirectView;
+import com.egg.web.library.entity.Author;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 @RestController
 @RequestMapping("/autores")
-public class AuthorController implements WebMvcConfigurer {
+public class AuthorController  {
 
     @Autowired
     AuthorService aservice;
@@ -35,6 +39,7 @@ public class AuthorController implements WebMvcConfigurer {
     @GetMapping("/registrar")
     public ModelAndView registrarAuthor() {
         ModelAndView mav = new ModelAndView("registerAuthor");
+            mav.addObject("author", new Author());
         mav.addObject("action", "crear");
 
         return mav;
@@ -62,13 +67,15 @@ public class AuthorController implements WebMvcConfigurer {
     }
 
     @PostMapping("/crear")
-    public RedirectView crearAutor(@Valid @RequestParam String name) throws MyExceptionService {
-//        if (bindingResult.hasErrors()) {
-//            return "registrar";
-//            
-//            
-//        }
-        aservice.createAuthor(name);
+    public RedirectView crearAutor(@Valid @ModelAttribute("author") Author author,
+                            BindingResult result) {
+        if (result.hasErrors()) {
+                System.out.println("Hola");
+            return new RedirectView("/autores/registrar");
+        
+
+        }
+        aservice.createAuthor(author);
         return new RedirectView("/autores");
 
     }

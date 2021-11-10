@@ -19,16 +19,16 @@ public class AuthorService {
     private AuthorRepository authorRep;
 
     @Transactional
-    public void createAuthor(String name) throws MyExceptionService {
-        try {
-            Validation.validationService(name);
-        } catch (MyExceptionService e) {
-            throw MyExceptionService.nameAuthor();
-        }
-
-        Author author = new Author();
-        author.setName(name);
-        author.setStatus(true);
+    public void createAuthor(Author author)  {
+//        try {
+//            Validation.validationService(name);
+//        } catch (MyExceptionService e) {
+//            throw MyExceptionService.nameAuthor();
+//        }
+//
+//        Author author = new Author();
+//        author.setName(name);
+//        author.setStatus(true);
         authorRep.save(author);
     }
 
@@ -55,7 +55,7 @@ public class AuthorService {
     @Transactional
     public void modifyName(String id, String name) throws MyExceptionService {
         try {
-            Validation.validationService(name);
+//            Validation.validationService(name);
             Optional<Author> reponse = authorRep.findById(id);
             Validation.validationIDfound(id, reponse);
 

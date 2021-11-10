@@ -17,56 +17,52 @@ public class EditorialService {
     private EditorialRepository editorialRep;
 
     @Transactional
-    public void crearEditorial(String name)  {
-//        try {
-//            Validation.validationService(name);
-//        } catch (MyExceptionService e) {
-//            throw MyExceptionService.nameAuthor();
-//        }
+    public void crearEditorial(String name) throws MyExceptionService {
+
+        Validation.validationName(name);
 
         Editorial editorial = new Editorial();
         editorial.setName(name);
         editorial.setStatus(true);
         editorialRep.save(editorial);
     }
-    
-    @Transactional
-    public Editorial returnEditorial(String idname)  {
 
-       if (editorialRep.findById(idname).isPresent()) {
+    @Transactional
+    public Editorial returnEditorial(String idname) {
+
+        if (editorialRep.findById(idname).isPresent()) {
 
             return (editorialRep.findById(idname).get());
         } else {
 
             Editorial editorial = new Editorial();
-        editorial.setName(idname);
-        editorial.setStatus(true);
+            editorial.setName(idname);
+            editorial.setStatus(true);
 
             return (editorialRep.save(editorial));
         }
     }
 
-    
 //NO ESTOY USANDO MI QUERY ESPECIAL PARA ESTO
-
     @Transactional
     public void modifyName(String id, String name) throws MyExceptionService {
-        try {
-            Validation.validationService(name);
-            Optional<Editorial> reponse = editorialRep.findById(id);
-            Validation.validationIDfound(id, reponse);
-
-        } catch (MyExceptionService e) {
-            throw new MyExceptionService();
-        }
+//        try {
+//            Validation.validationService(name);
+//            Optional<Editorial> reponse = editorialRep.findById(id);
+//            Validation.validationIDfound(id, reponse);
+//
+//        } catch (MyExceptionService e) {
+//            throw new MyExceptionService();
+//        }
 
         Editorial editorial = editorialRep.findById(id).get();
         editorial.setName(name);
         editorialRep.save(editorial);
 
     }
+
     @Transactional
-    public void changeState(String id, Boolean status)  {
+    public void changeState(String id, Boolean status) {
 //        try {
 //            Optional<Author> reponse = authorRep.findById(id);
 //            Validation.validationIDfound(id, reponse);
@@ -74,9 +70,10 @@ public class EditorialService {
 //        } catch (MyExceptionService e) {
 //            throw new MyExceptionService();
 //        }
-     
-      editorialRep.changeStatus(id, status);
+
+        editorialRep.changeStatus(id, status);
     }
+
     @Transactional
     public void unsuscribe(String id) throws MyExceptionService {
         try {
