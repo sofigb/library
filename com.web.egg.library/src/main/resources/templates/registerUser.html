@@ -37,22 +37,30 @@
                         <div class="col-lg-7">
                             <div class="p-5">
                                 <div class="text-center">
-                                    <h1 class="h4 text-gray-900 mb-4">Crear Autor</h1>
+                                    <h1 class="h4 text-gray-900 mb-4">Crear Usuario</h1>
                                 </div>
                                
-                                <form th:action="@{/autores/__${action}__}" method ="POST" class="user" th:object="${author}">
+                                <form th:action="@{/registro}" method ="POST" class="user" th:object="${user}">
                                   
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
                                                
-                                            <input  type="text"  class="form-control form-control-user"  id="name"  th:field="*{name}"  
+                                            <input  type="text"  class="form-control form-control-user"  id="username"  name="username"  
+                                                    th:value="${username}"
                                                     placeholder="Ingrese el nombre completo" />
-                                                    <div class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}" ></div>
+                                                    
+                                        </div>
+                                          <div class="col-sm-6 mb-3 mb-sm-0">
+                                               
+                                            <input  type="text"  class="form-control form-control-user"  id="password"   name="password"  
+                                                    th:value="${password}"
+                                                    placeholder="Ingrese la contraseña" />
+                                                    
                                         </div>
                                    
                                     </div>
                                     <button 	type="submit" class="btn btn-primary btn-user btn-block"> 
-                                        Registrar Autor </button> 
+                                        Registrar Usuario </button> 
                                 </form>
                             </div>
                         </div>

@@ -3,6 +3,7 @@ package com.egg.web.library.validation;
 import com.egg.web.library.entity.Author;
 import com.egg.web.library.entity.Editorial;
 import com.egg.web.library.exception.MyExceptionService;
+import java.util.List;
 
 import java.util.Optional;
 import java.util.regex.Matcher;
@@ -20,6 +21,16 @@ public class Validation {
         if (!matcherName.matches()) {
             throw MyExceptionService.nameFormat();
         }
+    }
+    
+    public static void validationOnlyName(String name,List<Editorial> entity) throws MyExceptionService {
+        for (Editorial entity1 : entity) {
+            if (name.equalsIgnoreCase(entity1.getName())) {
+                throw MyExceptionService.nameExits();
+            }
+        }
+
+       
     }
 
     public static void validationIDfound(String id, Optional reponse) throws MyExceptionService {

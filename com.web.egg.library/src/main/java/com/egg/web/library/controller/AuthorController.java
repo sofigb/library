@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 @RestController
 @RequestMapping("/autores")
-public class AuthorController  {
+public class AuthorController {
 
     @Autowired
     AuthorService aservice;
@@ -39,7 +39,7 @@ public class AuthorController  {
     @GetMapping("/registrar")
     public ModelAndView registrarAuthor() {
         ModelAndView mav = new ModelAndView("registerAuthor");
-            mav.addObject("author", new Author());
+        mav.addObject("author", new Author());
         mav.addObject("action", "crear");
 
         return mav;
@@ -68,11 +68,10 @@ public class AuthorController  {
 
     @PostMapping("/crear")
     public RedirectView crearAutor(@Valid @ModelAttribute("author") Author author,
-                            BindingResult result) {
+            BindingResult result) {
         if (result.hasErrors()) {
-                System.out.println("Hola");
+            System.out.println("Hola");
             return new RedirectView("/autores/registrar");
-        
 
         }
         aservice.createAuthor(author);

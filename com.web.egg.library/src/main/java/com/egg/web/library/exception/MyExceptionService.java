@@ -13,6 +13,10 @@ public class MyExceptionService extends Exception {
 
         return new MyExceptionService("El nombre  es obligatorio");
     }
+     public static MyExceptionService nameExits() {
+
+        return new MyExceptionService("El nombre ya existe");
+    }
 
     public static MyExceptionService nameFormat() {
 

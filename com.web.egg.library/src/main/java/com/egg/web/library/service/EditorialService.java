@@ -20,7 +20,7 @@ public class EditorialService {
     public void crearEditorial(String name) throws MyExceptionService {
 
         Validation.validationName(name);
-
+        Validation.validationOnlyName(name, findAll());
         Editorial editorial = new Editorial();
         editorial.setName(name);
         editorial.setStatus(true);
@@ -46,47 +46,22 @@ public class EditorialService {
 //NO ESTOY USANDO MI QUERY ESPECIAL PARA ESTO
     @Transactional
     public void modifyName(String id, String name) throws MyExceptionService {
-//        try {
-//            Validation.validationService(name);
-//            Optional<Editorial> reponse = editorialRep.findById(id);
-//            Validation.validationIDfound(id, reponse);
-//
-//        } catch (MyExceptionService e) {
-//            throw new MyExceptionService();
-//        }
 
+        Validation.validationName(name);
+        Optional<Editorial> reponse = editorialRep.findById(id);
+        Validation.validationIDfound(id, reponse);
         Editorial editorial = editorialRep.findById(id).get();
+        Validation.validationOnlyName(name, findAll());
         editorial.setName(name);
         editorialRep.save(editorial);
 
     }
 
     @Transactional
-    public void changeState(String id, Boolean status) {
-//        try {
-//            Optional<Author> reponse = authorRep.findById(id);
-//            Validation.validationIDfound(id, reponse);
-//
-//        } catch (MyExceptionService e) {
-//            throw new MyExceptionService();
-//        }
-
+    public void changeState(String id, Boolean status) throws MyExceptionService {
+        Optional<Editorial> reponse = editorialRep.findById(id);
+        Validation.validationIDfound(id, reponse);
         editorialRep.changeStatus(id, status);
-    }
-
-    @Transactional
-    public void unsuscribe(String id) throws MyExceptionService {
-        try {
-            Optional<Editorial> reponse = editorialRep.findById(id);
-            Validation.validationIDfound(id, reponse);
-
-        } catch (MyExceptionService e) {
-            throw new MyExceptionService();
-        }
-
-        Editorial editorial = editorialRep.findById(id).get();
-        editorial.setStatus(false);
-        editorialRep.save(editorial);
     }
 
     @Transactional(readOnly = true)
