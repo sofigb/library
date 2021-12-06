@@ -1,10 +1,12 @@
 package com.egg.web.library.service;
-
+import com.egg.web.library.entity.Roll;
 import com.egg.web.library.entity.Users;
 import com.egg.web.library.exception.MyExceptionService;
 import com.egg.web.library.repository.UserRepository;
 import java.util.Collections;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -24,19 +26,24 @@ public class UserService implements UserDetailsService {
     private BCryptPasswordEncoder encoder;
 
     @Transactional
-    public void createUser(String username, String password) throws MyExceptionService {
+    public void createUser(String email, String password, Roll roll) throws MyExceptionService {
 
         Users user = new Users();
-        user.setUsername(username);
+        user.setEmail(email);
+        user.setRoll(roll);
         user.setPassword(encoder.encode(password));
         userRep.save(user);
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Users users = userRep.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException(String.format(MENSAJE, username)));
-
-        return new User(users.getUsername(), users.getPassword(), Collections.emptyList());
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        Users users = userRep.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException(String.format(MENSAJE, email)));
+        
+        
+        GrantedAuthority authority = new SimpleGrantedAuthority ("ROLE_"+users.getRoll().getName());
+        
+        
+        return new User(users.getEmail(), users.getPassword(), Collections.singletonList(authority));
 
     }
 

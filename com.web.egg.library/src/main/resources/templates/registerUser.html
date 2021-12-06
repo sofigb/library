@@ -45,17 +45,29 @@
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
                                                
-                                            <input  type="text"  class="form-control form-control-user"  id="username"  name="username"  
-                                                    th:value="${username}"
+                                            <input  type="email"  class="form-control form-control-user"  id="email"  name="email"  
+                                                    th:value="${email}"
                                                     placeholder="Ingrese el nombre completo" />
                                                     
                                         </div>
                                           <div class="col-sm-6 mb-3 mb-sm-0">
                                                
-                                            <input  type="text"  class="form-control form-control-user"  id="password"   name="password"  
+                                            <input  type="password"  class="form-control form-control-user"  id="password"   name="password"  
                                                     th:value="${password}"
                                                     placeholder="Ingrese la contraseña" />
                                                     
+                                        </div>
+                                         <div class="col-sm-6 mb-3 mb-sm-0 ">
+                                            <input type="text" class="form-control form-control-user"  name="roll" 
+                                                   placeholder="Elige rol" list="rolList">
+
+                                            <datalist id="rolList">
+
+                                                <option th:each="roll : ${roles}" th:text="|${roll.name}|"
+                                                       th:value="${roll.id}"  ></option>
+                                                </select>
+                                            </datalist>
+
                                         </div>
                                    
                                     </div>

@@ -3,6 +3,7 @@ package com.egg.web.library.controller;
 import com.egg.web.library.exception.MyExceptionService;
 import com.egg.web.library.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 @RestController
 @RequestMapping("/socios")
+
 public class CustomerController {
 
     @Autowired
@@ -25,11 +27,12 @@ public class CustomerController {
         mav.addObject("socios", cservice.findAll());
         mav.addObject("href", "registrar");
         mav.addObject("title", "o Socio");
-        mav.addObject("title1", "Socios"); 
+        mav.addObject("title1", "Socios");
         return mav;
     }
 
     @GetMapping("/registrar")
+     @PreAuthorize("hasRole('ADMIN')")
     public ModelAndView registrarLibro() {
         ModelAndView mav = new ModelAndView("registerCustomer");
         mav.addObject("action", "crear");
@@ -38,6 +41,7 @@ public class CustomerController {
     }
 
     @GetMapping("/modificarSocios/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ModelAndView modificarLibro(@PathVariable String id) {
         ModelAndView mav = new ModelAndView("modifyCustomer");
         mav.addObject("title1", "Cambios en Clientes");
@@ -59,12 +63,14 @@ public class CustomerController {
     }
 
     @PostMapping("/crear")
+    @PreAuthorize("hasRole('ADMIN')")
     public RedirectView crearSocio(@RequestParam Long dni, @RequestParam String name, @RequestParam String surname, @RequestParam String phone) throws MyExceptionService {
         cservice.createCustomer(dni, name, surname, phone);
         return new RedirectView("/socios");
     }
 
     @PostMapping("/guardarCambios")
+     @PreAuthorize("hasRole('ADMIN')")
     public RedirectView modificarSocio(@RequestParam String id, @RequestParam Long dni, @RequestParam String name, @RequestParam String surname, @RequestParam String phone) throws MyExceptionService {
 
         cservice.modifyCustomer(id, dni, name, surname, phone);

@@ -44,7 +44,7 @@
 
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
-                <a class="nav-link dropdown-toggle" thhref="/inicio" id="userDropdown" role="button"
+                <a class="nav-link dropdown-toggle" href="/inicio" id="userDropdown" role="button"
                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
                     <i class=" fa fa-cog fa-sm fa-fw mr-2 text-gray-400"></i>
@@ -96,10 +96,127 @@
 
     </nav>
 </div>
+<div th:fragment="sidebar">
+    <!-- Sidebar -->
+            <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
+                <!-- Sidebar - Brand -->
+                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                    <div class="sidebar-brand-icon rotate-n-15">
+                        <i class="fas fa-laugh-wink"></i>
+                    </div>
+                    <div class="sidebar-brand-text mx-3">Que necesita? </div>
+                </a>
+
+                <!-- Divider -->
+                <hr class="sidebar-divider my-0">
+
+                <!-- Divider -->
+                <hr class="sidebar-divider">
+
+                <!-- Heading -->
+                <div class="sidebar-heading">
+                    Secciones
+                </div>
+
+                <!-- Nav Item - Pages Collapse Menu -->
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="/" data-toggle="collapse" data-target="#collapseTwo"
+                       aria-expanded="true" aria-controls="collapseTwo">
+                        <i class="far fa-address-card"></i>
+                        <span>Socios</span>
+                    </a>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Acciones:</h6>
+                            <a class="collapse-item" th:href="@{/socios}">Consultar Socios</a>
+                            <a class="collapse-item" th:href="@{/socios/registrar}">Registrar Socios</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="/" data-toggle="collapse" data-target="#collapseTwo"
+                       aria-expanded="true" aria-controls="collapseTwo">
+                        <i class="fa fa-book"></i>
+                        <span>Libro</span>
+                    </a>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Acciones:</h6>
+                            <a class="collapse-item" th:href="@{/libros}">Consultar libros</a>
+                            <a class="collapse-item" th:href="@{/libros/registrar}">Registrar Libros</a>
+                        </div>
+                    </div>
+                </li>
+                 <li class="nav-item">
+                    <a class="nav-link collapsed" href="/" data-toggle="collapse" data-target="#collapseTwo"
+                       aria-expanded="true" aria-controls="collapseTwo">
+                        <i class="far fa-handshake"></i>
+                        <span>Prestamos</span>
+                    </a>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Acciones:</h6>
+                            <a class="collapse-item" th:href="@{/prestamos}">Consultar Prestamos</a>
+                            <a class="collapse-item" th:href="@{/prestamos/registrar}">Registrar Prestamos</a>
+                            <a class="collapse-item" th:href="@{/prestamos/devueltos}">Ver Devoluciones</a>
+                        </div>
+                    </div>
+                </li>
+
+                <!-- Nav Item - Utilities Collapse Menu -->
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
+                       aria-expanded="true" aria-controls="collapseUtilities">
+                        <i class="fas fa-user"></i>
+                        <span>Autores</span>
+                    </a>
+                    <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
+                         data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Acciones</h6>
+                            <a class="collapse-item" th:href="@{/autores}">Consultar Autores</a>
+                            <a class="collapse-item" th:href="@{/autores/registrar}">Registrar Autores</a>
+
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
+                       aria-expanded="true" aria-controls="collapseUtilities">
+                        <i class="fas fa-list"></i>
+                        <span>Editoriales</span>
+                    </a>
+                    <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
+                         data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Acciones</h6>
+                            <a class="collapse-item" th:href="@{/editoriales}">Consultar Editoriales</a>
+                            <a class="collapse-item" th:href="@{/editoriales/registrar}">Registrar Editoriales</a>
+
+                        </div>
+                    </div>
+                </li>
+
+                <!-- Divider -->
+                <hr class="sidebar-divider">
+
+                <!-- Sidebar Toggler (Sidebar) -->
+                <div class="text-center d-none d-md-inline">
+                    <button class="rounded-circle border-0" id="sidebarToggle"></button>
+                </div>
+
+            </ul>
+</div>
 
 <div th:fragment="footer">
-
+ <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; Your Website 2020</span>
+                    </div>
+                </div>
+            </footer>
 
 
 
